@@ -3,11 +3,19 @@
 }
 
 .colorFC{
-	color: rgb(161,205,215);
+	color: rgb(224,205,169);
 }
 
 .colorLS{
 	color: rgb(212,255,127);
+}
+
+.colorLS2{
+	color: rgb(50,156,255);
+}
+
+.colorLSHunt{
+	color: rgb(255,0,0);
 }
 
 .colorMob{
@@ -51,7 +59,7 @@
 }
 
 .colorWhisper{
-	color: rgb(255,184,224);
+	color: rgb(255,50,224);
 }
 
 .colorSay{

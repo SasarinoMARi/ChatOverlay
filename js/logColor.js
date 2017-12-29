@@ -1,6 +1,13 @@
 function getColor(type){
 	if(type==24)
-		return "colorFC";
+	    return "colorFC";
+
+        // 개인 커스터마이징
+	else if (type == 17) 
+	    return "colorLS2";
+	else if (type >= 18 && type <= 20)
+	    return "colorLSHunt";
+
 	else if(type>=16&&type<=23)
 		return "colorLS";
 	else if(type==45||type==173||type==75||type==27)

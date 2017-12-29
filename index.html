@@ -12,7 +12,7 @@
 				height: 100vh;
 				max-width: 100vw;
 				max-height: 100vh;
-				background-color: rgba(0,0,0,.6);
+				background-color: rgba(0,0,0,.8);
 				overflow: hidden;
 			}
 
@@ -34,63 +34,42 @@
 				margin-left: 10px;
 				margin-right: 10px;
 			}
+            
+            .fstyle {
+                font-size: small;
+                font-family: 'Malgun Gothic';
+            }
 		</style>
 	</head>
 	<body class="container-fluid">
 		<div id="logPreview"></div>
 		<script type="text/javascript" src="js/util.js"></script>
 		<script type="text/javascript" src="js/listen.js"></script>
-		<script src="./js/logColor.js"></script>
+        <script src="./js/logColor.js"></script>
+        <script src="./js/uiFuncitons.js"></script>
+        <script src="./js/audioFunctions.js"></script>
 		<script src="./js/jquery-1.12.4.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
 		<script src="./js/bootstrap-slider.min.js"></script>
-		<script src="./js/moment.js"></script>
+        <script src="./js/moment.js"></script>
 		<script>
-			function activePlugin(){
-				localStorage.activate = "true";
-				$("#activate").hide();
-			}
-
-			function deactivePlugin(){
-				localStorage.activate = "false";
-				$("#activate").show();
-				resetTimeline();
-				location.reload();
-			}
-
-			function setHeight() {
-				$("#logPreview").height($(window).height()-$("#logPreview").offset().top);
-			}
-
-            function clearPreview(){
-				$("#logPreview").html("");
-			}
-
-            function selectLog() {
+            function filterLog(type) {
                 var isTalkLogEnabled = true;
                 var isBattleLogEnabled = false;
                 var isEventLogEnabled = true;
 
-                if (isTalkLogEnabled) $(".type0").show();
-                else $(".type0").hide();
-                if (isBattleLogEnabled) $(".type1").show();
-                else $(".type1").hide();
-                if (isEventLogEnabled) $(".type2").show();
-                else $(".type2").hide();
-            }
-
-            function noScroll() {
-                while ($("#logPreview").prop("scrollHeight") > $("#logPreview").height()) {
-                    $("#logPreview").find("div:first-child").remove();
-                }
+                if (type == 0 && isTalkLogEnabled) return true;
+                if (type == 1 && isBattleLogEnabled) return true;
+                if (type == 2 && isEventLogEnabled) return true;
+                return false;
             }
 
 			function printData(data){
 				var timestamp = new Date(data.timestamp);
 				var prefix = '<span class="colorTime">['+(timestamp.getHours()<10?"0"+timestamp.getHours():timestamp.getHours())+":"+(timestamp.getMinutes()<10?"0"+timestamp.getMinutes():timestamp.getMinutes())+']</span>';
+				
 
 				var decType = data.type&255;
-
 				if(decType==24)
 					prefix+="[자유부대]<"+data.nickname+"> ";
 				else if(decType>=16&&decType<=23)
@@ -110,9 +89,11 @@
 				else if(decType==27)
 					prefix+="[초보자]<"+data.nickname+"> ";
 				
-				$("#logPreview").append('<div class="type'+getType(decType)+' '+getColor(decType)+' code'+decType+'">'+prefix+$("<div></div>").text(data.data).html()+'</div>');
-
-				selectLog();
+				var type = getType(decType);
+				if (filterLog(type)) {
+				    $("#logPreview").append('<div class="type' + type + ' ' + getColor(decType) + ' code' + decType + ' fstyle" >' + prefix + $("<div></div>").text(data.data).html() + '</div>');
+				    playSnd(decType);
+				}
 			}
 
 			function printLog(){
@@ -127,18 +108,15 @@
 				}
 			}
 
-			function resetTimeline(){
-				window.timeline = [];
-				window.workline = [];
-				window.logline = [];
-				window.isActive = false;
-				window.pauseTimeline = false;
-				window.lastZone = "Unknown";
+			function escapeLog(text) {
+			    text = text
+                    .replace("", "1")
+                    .replace("", "2")
+                    .replace("", "3")
+                    .replace("", "HQ")
+                ;
 
-				clearPreview();
-			}
-
-			function escapeLog(text){
+                // 이하 아즈님이 원래 만드신거
 				var startList = ["\u001c","\u0002","�","\u0003"];
 
 				while(true){
@@ -165,70 +143,16 @@
 				return text;
 			}
 
-			document.addEventListener("onOverlayDataUpdate",function(data){
-				if(!localStorage.activate)
-					return;
-				if(!data.detail)
-					return;
+			document.addEventListener("onOverlayDataUpdate", function (data) {
+			    if (!localStorage.activate)
+			        return;
+			    if (!data.detail)
+			        return;
 
-				if(!window.meter)
-					window.meter = new window.Data(data.detail);
-				else
-					window.meter.update(data.detail);
-
-				var newData = [];
-
-				for(var i=0;i<window.meter.data.length;i++){
-					newData.push({
-						Job: window.meter.data[i].Job,
-						name: window.meter.data[i].name,
-						encdps: window.meter.data[i].encdps,
-						damage: window.meter.data[i].damage,
-						"damage%": window.meter.data[i]["damage%"],
-						"crithit%": window.meter.data[i]["crithit%"],
-						swings: window.meter.data[i].swings,
-						misses: window.meter.data[i].misses,
-						maxhit: window.meter.data[i].maxhit,
-						deaths: window.meter.data[i].deaths,
-						enchps: window.meter.data[i].enchps,
-						healed: window.meter.data[i].healed,
-						"healed%": window.meter.data[i]["healed%"],
-						OverHealPct: window.meter.data[i].OverHealPct,
-						heals: window.meter.data[i].heals,
-						cures: window.meter.data[i].cures,
-						maxheal: window.meter.data[i].maxheal
-					});
-				}
-
-				window.timeline.push({
-					timestamp: new Date().getTime(),
-					type: -10,
-					nickname: "",
-					data: {
-						header: {
-							duration: window.meter.header.duration,
-							title: window.meter.header.title,
-							encdps: window.meter.header.encdps,
-							CurrentZoneName: window.meter.header.CurrentZoneName,
-						},
-						data: newData
-					}
-				});
-
-				if(window.isActive!=window.meter.isActive){
-					if(window.isActive=="true"){
-						window.logline.push({
-							timestamp: new Date().getTime(),
-							type: -20,
-							index: [window.activeIndex,window.timeline.length-1],
-							data: [window.meter.header.CurrentZoneName,window.meter.header.title,window.meter.header.duration]
-						});
-					}
-					else
-						window.activeIndex = window.timeline.length-1;
-
-					window.isActive = window.meter.isActive;
-				}
+			    if (!window.meter)
+			        window.meter = new window.Data(data.detail);
+			    else
+			        window.meter.update(data.detail);
 			});
 
 			document.addEventListener("onLogLine",function(data){
@@ -271,4 +195,4 @@
 			});
 		</script>
 	</body>
-</html>
+</html>
