@@ -1,0 +1,95 @@
+.colorTime{
+	color: rgb(255,255,255);
+}
+
+.colorFC{
+	color: rgb(161,205,215);
+}
+
+.colorLS{
+	color: rgb(212,255,127);
+}
+
+.colorMob{
+	color: rgb(172,216,72);
+}
+
+.colorSys{
+	color: rgb(204,204,204);
+}
+
+.colorParty{
+	color: rgb(102,230,255);
+}
+
+.colorEmo{
+	color: rgb(188,255,240);
+}
+
+.colorErr{
+	color: rgb(255,76,76);
+}
+
+.colorItem{
+	color: rgb(187,179,149);
+}
+
+.colorGet{
+	color: rgb(255,255,178);
+}
+
+.colorShout{
+	color: rgb(255,166,102);
+}
+
+.colorExp{
+	color: rgb(255,222,115);
+}
+
+.colorNotice{
+	color: rgb(179,140,255);
+}
+
+.colorWhisper{
+	color: rgb(255,184,224);
+}
+
+.colorSay{
+	color: rgb(248,248,248);
+}
+
+.colorCraft{
+	color: rgb(224,192,248);
+}
+
+.colorYell{
+	color: rgb(238,238,0);
+}
+
+.colorFCNotice{
+	color: rgb(172,220,230);
+}
+
+.colorDamage{
+	color: rgb(255,127,127);
+}
+
+.colorDebuff{
+	color: rgb(255,140,198);
+}
+
+.colorBuff{
+	color: rgb(148,192,255);
+}
+
+.colorAli{
+	color: rgb(255,128,0);
+}
+
+.colorDice{
+	color: rgb(200,192,160);
+}
+
+.colorUnknown{
+	color: rgb(0,0,0);
+}
