@@ -69,31 +69,62 @@
 				var prefix = '<span class="colorTime">['+(timestamp.getHours()<10?"0"+timestamp.getHours():timestamp.getHours())+":"+(timestamp.getMinutes()<10?"0"+timestamp.getMinutes():timestamp.getMinutes())+']</span>';
 				
 
-				var decType = data.type&255;
-				if(decType==24)
-					prefix+="[자유부대]<"+data.nickname+"> ";
-				else if(decType>=16&&decType<=23)
-					prefix+="["+(decType-15)+"]<"+data.nickname+"> ";
-				else if(decType==10||decType==11||decType==68||decType==30||decType==61)
-					prefix+=data.nickname+": ";
-				else if(decType==14)
-					prefix+="("+data.nickname+") ";
-				else if(decType==28)
-					prefix+=data.nickname;
-				else if(decType==12)
-					prefix+=">>"+data.nickname+": ";
-				else if(decType==13)
-					prefix+=data.nickname+" >> ";
-				else if(decType==15)
-					prefix+="(("+data.nickname+")) ";
-				else if(decType==27)
-					prefix+="[초보자]<"+data.nickname+"> ";
-				
+				var decType = data.type & 255;
 				var type = getType(decType);
-				if (filterLog(type)) {
-				    $("#logPreview").append('<div class="type' + type + ' ' + getColor(decType) + ' code' + decType + ' fstyle" >' + prefix + $("<div></div>").text(data.data).html() + '</div>');
-				    playSnd(decType);
+				if (!filterLog(type)) return;
+				if (decType == 24) {
+                    // FC
+				    prefix += "[자유부대]<" + data.nickname + "> ";
+				    checkUsername(data);
 				}
+				else if (decType >= 16 && decType <= 23) {
+                    // LS
+				    prefix += "[" + (decType - 15) + "]<" + data.nickname + "> ";
+				    checkUsername(data);
+				}
+				else if (decType == 10 || decType == 11 || decType == 68 || decType == 30 || decType == 61) {
+                    // Filed 
+				    prefix += data.nickname + ": ";
+				    checkUsername(data);
+				}
+				else if (decType == 14) {
+                    // party
+				    prefix += "(" + data.nickname + ") ";
+				    checkUsername(data);
+                }
+                else if (decType == 28) {
+                    // Emote
+                    prefix += data.nickname;
+                    checkUsername(data);
+                }
+                else if (decType == 12) {
+                    // whisper
+                    prefix += ">>" + data.nickname + ": ";
+                }
+                else if (decType == 13) {
+                    // whisper
+                    prefix += data.nickname + " >> ";
+                }
+                else if (decType == 15){
+                    prefix += "((" + data.nickname + ")) ";
+                }
+                else if (decType == 27) {
+                    // Novice
+                    prefix += "[초보자]<" + data.nickname + "> ";
+                    checkUsername(data);
+                }
+
+				if (type >= 18 && type <= 20)
+				    playSnd(3);
+				
+				$("#logPreview").append('<div class="type' + type + ' ' + getColor(decType) + ' code' + decType + ' fstyle" >' + prefix + $("<div></div>").text(data.data).html() + '</div>');
+
+			}
+
+			function checkUsername(data)
+			{
+			    if (data.data.indexOf("사긔") > -1)
+			        playSnd(1);
 			}
 
 			function printLog(){
