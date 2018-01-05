@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="./css/bootstrap.min.css" rel="stylesheet">
 		<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
-		<link href="./css/logColor.css" rel="stylesheet">
+        <link href="./css/logColor.css" rel="stylesheet">
+        <link href="./css/scrollbar.css" rel="stylesheet">
 		<style>
 			body{
 				width: 100vw;
@@ -32,7 +33,6 @@
 
 			.logList button{
 				margin-left: 10px;
-				margin-right: 10px;
 			}
             
             .fstyle {
@@ -41,7 +41,7 @@
             }
 		</style>
 	</head>
-	<body class="container-fluid">
+	<body style="padding-left: 15px;">
 		<div id="logPreview"></div>
 		<script type="text/javascript" src="js/util.js"></script>
 		<script type="text/javascript" src="js/listen.js"></script>
@@ -66,12 +66,11 @@
 
 			function printData(data){
 				var timestamp = new Date(data.timestamp);
-				var prefix = '<span class="colorTime">['+(timestamp.getHours()<10?"0"+timestamp.getHours():timestamp.getHours())+":"+(timestamp.getMinutes()<10?"0"+timestamp.getMinutes():timestamp.getMinutes())+']</span>';
-				
+				var prefix = '<span class="colorTime">['+(timestamp.getHours()<10?"0"+timestamp.getHours():timestamp.getHours())+":"+(timestamp.getMinutes()<10?"0"+timestamp.getMinutes():timestamp.getMinutes())+'] </span>';
 
 				var decType = data.type & 255;
 				var type = getType(decType);
-				if (!filterLog(type)) return;
+				if (!filterLog(type)) return false;
 				if (decType == 24) {
                     // FC
 				    prefix += "[자유부대]<" + data.nickname + "> ";
@@ -118,25 +117,13 @@
 				    playSnd(3);
 				
 				$("#logPreview").append('<div class="type' + type + ' ' + getColor(decType) + ' code' + decType + ' fstyle" >' + prefix + $("<div></div>").text(data.data).html() + '</div>');
-
+				return true;
 			}
 
 			function checkUsername(data)
 			{
 			    if (data.data.indexOf("사긔") > -1)
 			        playSnd(1);
-			}
-
-			function printLog(){
-				while($("#logPreview").prop("scrollHeight")-$("#logPreview").height()<=$("#logPreview").scrollTop()){
-					if(window.meterI==window.workline.length)
-						return;
-
-					for(var i=window.meterI;window.meterI<window.workline.length&&window.meterI-i<50;window.meterI++){
-						if(window.workline[window.meterI].type>=0)
-							printData(window.workline[window.meterI]);
-					}
-				}
 			}
 
 			function escapeLog(text) {
@@ -201,8 +188,12 @@
 					});
 
 					if(!window.pauseTimeline){
-						printData(window.timeline[window.timeline.length-1]);
-						noScroll();
+					    if (printData(window.timeline[window.timeline.length - 1])) {
+                            // 메세지 출력 시에만 분기
+					        //noScroll();
+					        autoScroll();
+					        lineLimitation();
+					    }
 					}
 				}
 				else if(data.detail.opcode==1){
@@ -220,7 +211,6 @@
 			$(window).load(function(){
 				resetTimeline();
 				setHeight();
-				$("#logPreview").scroll(printLog);
 				$(window).resize(setHeight);
 				activePlugin();
 			});
