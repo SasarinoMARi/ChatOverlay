@@ -113,7 +113,7 @@
                     checkUsername(data);
                 }
 
-				if (type >= 18 && type <= 20)
+				if (decType >= 18 && decType <= 20)
 				    playSnd(3);
 				
 				$("#logPreview").append('<div class="type' + type + ' ' + getColor(decType) + ' code' + decType + ' fstyle" >' + prefix + $("<div></div>").text(data.data).html() + '</div>');
