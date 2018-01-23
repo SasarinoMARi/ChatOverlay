@@ -1,0 +1,278 @@
+﻿<!doctype HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- 자바스크립트 참조 -->
+	<script src="./js/jquery-1.12.4.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-slider.min.js"></script>
+	<script src="./js/moment.js"></script>
+
+	<!-- 스타일시트 참조 -->
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
+	<style>
+		body {
+			width: 100vw;
+			height: 100vh;
+			max-width: 100vw;
+			max-height: 100vh;
+			overflow: hidden;
+		}
+
+		#title {
+			padding: 2rem;
+			height: 8rem;
+			box-shadow: 0px 3px 10px #888888;
+		}
+
+		#content {
+			width: 100%;
+			padding: 2rem;
+		}
+
+		.coat1 {
+			padding: 0.5rem;
+		}
+
+		.coat2 {
+			padding: 1rem;
+		}
+
+		.coat3 {
+			padding: 1.5rem;
+		}
+
+		.nyeol {
+			clear: both;
+		}
+
+		.align-left {
+			float: left;
+		}
+
+		.align-right {
+			float: right;
+		}
+	</style>
+
+	<script>
+		function saveConfigurations() {
+			var controls = getControls();
+			for(var key in controls) 
+			{
+				var control = controls[key];
+				if(control.type == "text") localStorage[key] = control.value;
+				else if (control.type == "checkbox") localStorage[key] = control.checked;
+			}
+		}
+
+		function loadConfigurations() {
+			var controls = getControls();
+			for(var key in controls) 
+			{
+				if(localStorage[key] == undefined) continue;
+				var control = controls[key];
+				if(control.type == "text") control.value = localStorage[key];
+				else if (control.type == "checkbox") control.checked = localStorage[key] == 'true';
+			}
+		}
+
+		function getControls() {
+			var controls = {};
+			controls.username = document.getElementById("data_playername");
+
+			controls.log_isprint_talk = document.getElementById("data_log_print_talk");
+			controls.log_isnotify_talk = document.getElementById("data_log_notify_talk");
+			controls.log_isprint_nobodyusing = document.getElementById("data_log_print_nobodyusing");
+			controls.log_isnotify_nobodyusing = document.getElementById("data_log_notify_nobodyusing");
+			controls.log_isprint_shout = document.getElementById("data_log_print_shout");
+			controls.log_isnotify_shout = document.getElementById("data_log_notify_shout");
+			controls.log_isprint_whisper = document.getElementById("data_log_print_whisper");
+			controls.log_isnotify_whisper = document.getElementById("data_log_notify_whisper");
+			controls.log_isprint_party = document.getElementById("data_log_print_party");
+			controls.log_isnotify_party = document.getElementById("data_log_notify_party");
+			controls.log_isprint_grandparty = document.getElementById("data_log_print_grandparty");
+			controls.log_isnotify_grandparty = document.getElementById("data_log_notify_grandparty");
+			controls.log_isprint_novice = document.getElementById("data_log_print_novice");
+			controls.log_isnotify_novice = document.getElementById("data_log_notify_novice");
+			controls.log_isprint_emote = document.getElementById("data_log_print_emote");
+			controls.log_isnotify_emote = document.getElementById("data_log_notify_emote");
+
+			controls.log_isprint_fc = document.getElementById("data_log_print_fc");
+			controls.log_isnotify_fc = document.getElementById("data_log_notify_fc");
+			controls.log_isprint_ls1 = document.getElementById("data_log_print_ls1");
+			controls.log_isnotify_ls1 = document.getElementById("data_log_notify_ls1");
+			controls.log_isprint_ls2 = document.getElementById("data_log_print_ls2");
+			controls.log_isnotify_ls2 = document.getElementById("data_log_notify_ls2");
+			controls.log_isprint_ls3 = document.getElementById("data_log_print_ls3");
+			controls.log_isnotify_ls3 = document.getElementById("data_log_notify_ls3");
+			controls.log_isprint_ls4 = document.getElementById("data_log_print_ls4");
+			controls.log_isnotify_ls4 = document.getElementById("data_log_notify_ls4");
+			controls.log_isprint_ls5 = document.getElementById("data_log_print_ls5");
+			controls.log_isnotify_ls5 = document.getElementById("data_log_notify_ls5");
+			controls.log_isprint_ls6 = document.getElementById("data_log_print_ls6");
+			controls.log_isnotify_ls6 = document.getElementById("data_log_notify_ls6");
+			controls.log_isprint_ls7 = document.getElementById("data_log_print_ls7");
+			controls.log_isnotify_ls7 = document.getElementById("data_log_notify_ls7");
+			controls.log_isprint_ls8 = document.getElementById("data_log_print_ls8");
+			controls.log_isnotify_ls8 = document.getElementById("data_log_notify_ls8");
+
+			return controls;
+		}
+
+	</script>
+</head>
+
+<body onload="loadConfigurations();">
+	<div id="title" class="nyeol">
+		<span class="align-right" onclick="saveConfigurations();">저장</span>
+		<span class="align-left" style="font-size: 3rem;">설정</span>
+	</div>
+	<div id="content">
+		<div class="coat3" class="nyeol">
+			<span class="align-left">플레이어 이름 설정</span>
+			<input class="align-right" type="text" id="data_playername" value="" />
+		</div>
+		<div class="coat3">
+			<span>로그별 설정 (출력)(알림)</span>
+			<div class="coat3">
+				<div class="align-left">
+					<div class="nyeol">
+						<span class="align-left">말하기</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_talk" checked/>
+							<input type="checkbox" id="data_log_notify_talk" checked="true"/>
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">떠들기</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_nobodyusing" />
+							<input type="checkbox" id="data_log_notify_nobodyusing" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">외치기</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_shout" />
+							<input type="checkbox" id="data_log_notify_shout" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">귓속말</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_whisper" />
+							<input type="checkbox" id="data_log_notify_whisper" />
+						</div>
+					</div>
+
+					<div class="nyeol">
+						<span class="align-left">파티</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_party" />
+							<input type="checkbox" id="data_log_notify_party" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">연합 파티</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_grandparty" />
+							<input type="checkbox" id="data_log_notify_grandparty" />
+						</div>
+					</div>
+
+					<div class="nyeol">
+						<span class="align-left">초보자 채널</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_novice" />
+							<input type="checkbox" id="data_log_notify_novice" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">감정 표현</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_emote" />
+							<input type="checkbox" id="data_log_notify_emote" />
+						</div>
+					</div>
+				</div>
+
+				<div class="coat3 align-left"></div>
+
+				<div class="align-left">
+					<div class="nyeol">
+						<span class="align-left">자유부대</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_fc" />
+							<input type="checkbox" id="data_log_notify_fc" />
+						</div>
+					</div>
+
+					<div class="nyeol">
+						<span class="align-left">링크셸1</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls1" />
+							<input type="checkbox" id="data_log_notify_ls1" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸2</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls2" />
+							<input type="checkbox" id="data_log_notify_ls2" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸3</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls3" />
+							<input type="checkbox" id="data_log_notify_ls3" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸4</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls4" />
+							<input type="checkbox" id="data_log_notify_ls4" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸5</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls5" />
+							<input type="checkbox" id="data_log_notify_ls5" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸6</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls6" />
+							<input type="checkbox" id="data_log_notify_ls6" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸7</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls7" />
+							<input type="checkbox" id="data_log_notify_ls7" />
+						</div>
+					</div>
+					<div class="nyeol">
+						<span class="align-left">링크셸8</span>
+						<div class="align-right">
+							<input type="checkbox" id="data_log_print_ls8" />
+							<input type="checkbox" id="data_log_notify_ls8" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

@@ -17,7 +17,12 @@
 				overflow: hidden;
 			}
 
+			#titleBar {
+				background-color: rgba(0,0,0,.9);
+			}
+
 			#logPreview{
+				padding-alignLeft: 15px;
 				overflow: auto;
 			}
 
@@ -32,7 +37,7 @@
 			}
 
 			.logList button{
-				margin-left: 10px;
+				margin-alignLeft: 10px;
 			}
             
             .fstyle {
@@ -41,7 +46,8 @@
             }
 		</style>
 	</head>
-	<body style="padding-left: 15px;">
+	<body>
+		<div id="titleBar"><text style="color: #ffffff" onclick="window.open('settings.html', '설정','width=400,height=700'); ">설정</text></div>
 		<div id="logPreview"></div>
 		<script type="text/javascript" src="js/util.js"></script>
 		<script type="text/javascript" src="js/listen.js"></script>
