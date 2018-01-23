@@ -5,13 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- 자바스크립트 참조 -->
-	<script src="./js/jquery-1.12.4.min.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
-	<script src="./js/bootstrap-slider.min.js"></script>
-	<script src="./js/moment.js"></script>
-
-	<!-- 스타일시트 참조 -->
+	<!-- 스타일시트 선언 -->
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
 	<style>
@@ -57,8 +51,18 @@
 		.align-right {
 			float: right;
 		}
+
+		* {
+			font-size: small;
+			font-family: 'Malgun Gothic';
+		}
 	</style>
 
+	<!-- 자바스크립트 선언 -->
+	<script src="./js/jquery-1.12.4.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-slider.min.js"></script>
+	<script src="./js/moment.js"></script>
 	<script>
 		function saveConfigurations() {
 			var controls = getControls();
@@ -129,7 +133,7 @@
 
 <body onload="loadConfigurations();">
 	<div id="title" class="nyeol">
-		<span class="align-right" onclick="saveConfigurations();">저장</span>
+		<span class="align-right" onclick="saveConfigurations(); self.opener = self; window.close();">저장</span>
 		<span class="align-left" style="font-size: 3rem;">설정</span>
 	</div>
 	<div id="content">
@@ -145,27 +149,27 @@
 						<span class="align-left">말하기</span>
 						<div class="align-right">
 							<input type="checkbox" id="data_log_print_talk" checked/>
-							<input type="checkbox" id="data_log_notify_talk" checked="true"/>
+							<input type="checkbox" id="data_log_notify_talk"/>
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">떠들기</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_nobodyusing" />
+							<input type="checkbox" id="data_log_print_nobodyusing" checked/>
 							<input type="checkbox" id="data_log_notify_nobodyusing" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">외치기</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_shout" />
+							<input type="checkbox" id="data_log_print_shout" checked/>
 							<input type="checkbox" id="data_log_notify_shout" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">귓속말</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_whisper" />
+							<input type="checkbox" id="data_log_print_whisper" checked/>
 							<input type="checkbox" id="data_log_notify_whisper" />
 						</div>
 					</div>
@@ -173,14 +177,14 @@
 					<div class="nyeol">
 						<span class="align-left">파티</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_party" />
+							<input type="checkbox" id="data_log_print_party" checked/>
 							<input type="checkbox" id="data_log_notify_party" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">연합 파티</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_grandparty" />
+							<input type="checkbox" id="data_log_print_grandparty" checked/>
 							<input type="checkbox" id="data_log_notify_grandparty" />
 						</div>
 					</div>
@@ -188,14 +192,14 @@
 					<div class="nyeol">
 						<span class="align-left">초보자 채널</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_novice" />
+							<input type="checkbox" id="data_log_print_novice" checked/>
 							<input type="checkbox" id="data_log_notify_novice" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">감정 표현</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_emote" />
+							<input type="checkbox" id="data_log_print_emote" checked/>
 							<input type="checkbox" id="data_log_notify_emote" />
 						</div>
 					</div>
@@ -207,7 +211,7 @@
 					<div class="nyeol">
 						<span class="align-left">자유부대</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_fc" />
+							<input type="checkbox" id="data_log_print_fc" checked/>
 							<input type="checkbox" id="data_log_notify_fc" />
 						</div>
 					</div>
@@ -215,56 +219,56 @@
 					<div class="nyeol">
 						<span class="align-left">링크셸1</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls1" />
+							<input type="checkbox" id="data_log_print_ls1" checked/>
 							<input type="checkbox" id="data_log_notify_ls1" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸2</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls2" />
+							<input type="checkbox" id="data_log_print_ls2" checked/>
 							<input type="checkbox" id="data_log_notify_ls2" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸3</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls3" />
+							<input type="checkbox" id="data_log_print_ls3" checked/>
 							<input type="checkbox" id="data_log_notify_ls3" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸4</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls4" />
+							<input type="checkbox" id="data_log_print_ls4" checked/>
 							<input type="checkbox" id="data_log_notify_ls4" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸5</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls5" />
+							<input type="checkbox" id="data_log_print_ls5" checked/>
 							<input type="checkbox" id="data_log_notify_ls5" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸6</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls6" />
+							<input type="checkbox" id="data_log_print_ls6" checked/>
 							<input type="checkbox" id="data_log_notify_ls6" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸7</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls7" />
+							<input type="checkbox" id="data_log_print_ls7" checked/>
 							<input type="checkbox" id="data_log_notify_ls7" />
 						</div>
 					</div>
 					<div class="nyeol">
 						<span class="align-left">링크셸8</span>
 						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls8" />
+							<input type="checkbox" id="data_log_print_ls8" checked/>
 							<input type="checkbox" id="data_log_notify_ls8" />
 						</div>
 					</div>
