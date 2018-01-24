@@ -42,17 +42,19 @@
 	<script type="text/javascript" src="js/listen.js"></script>
 	<script type="text/javascript" src="js/uiFuncitons.js"></script>
 	<script type="text/javascript" src="js/audioFunctions.js"></script>
-	<script>
-		function printData(data) {
+	<script type="text/javascript" src="js/translate.js"></script>
+	<script>		
+		function printData(data, callback) {
 			var decType = data.type & 255;
 			var type = getType(decType);
 			if (!filterLog(type)) return false;
 			var timestamp = getTimeStampSpan(data);
 			var detail = makeDetailData(data, decType);
-
-			if (detail.isVisible)
-				$("#logPreview").append('<div class="' + detail.logColor + ' code' + decType + ' fstyle" >' + timestamp + detail.prefix + $("<div></div>").text(data.data).html() + '</div>');
-
+			if (!detail.isVisible) return false;
+			translate(data.data, function(text) {
+				$("#logPreview").append('<div class="' + detail.logColor + ' code' + decType + ' fstyle" >' + timestamp + detail.prefix + $("<div></div>").text(text).html() + '</div>');
+			});
+			callback();
 			return true;
 		}
 
@@ -79,10 +81,10 @@
 				});
 
 				if (!window.pauseTimeline) {
-					if (printData(window.timeline[window.timeline.length - 1])) {
+					printData(window.timeline[window.timeline.length - 1], function() {
 						autoScroll();
 						lineLimitation();
-					}
+					});
 				}
 			}
 			else if (data.detail.opcode == 1) {
