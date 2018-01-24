@@ -329,7 +329,8 @@ function makeDetailData(data, decType) {
 
 function keywordCheck(data) {
   var username = localStorage.username;
-  if(username.length == 0) return;
+  if(username.length == 0) return false;
+  if(data.nickname == username) return false;
   if (data.data.indexOf(username) > -1) return true;
   else return false;
 }
