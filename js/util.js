@@ -43,6 +43,7 @@ function firstRunInitialize() {
     
     localStorage.log_isprint_system = true;
     localStorage.log_istranslate = false;
+    localStorage.log_apikey = "";
   }
 }
 

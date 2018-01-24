@@ -43,6 +43,13 @@
 			}
 		}
 
+		function uiCheck(reverse) {
+			if (document.getElementById('data_log_translate').checked == reverse)
+				document.getElementById('apiForm').style.display = 'inherit';
+			else
+				document.getElementById('apiForm').style.display = 'none';
+		}
+
 		function loadConfigurations() {
 			var controls = getControls();
 			for (var key in controls) {
@@ -93,8 +100,9 @@
 			controls.log_isprint_ls8 = document.getElementById("data_log_print_ls8");
 			controls.log_isnotify_ls8 = document.getElementById("data_log_notify_ls8");
 
-			controls.log_istranslate = document.getElementById("data_log_translate");
 			controls.log_isprint_system = document.getElementById("data_log_print_system");
+			controls.log_apikey = document.getElementById("data_playername");
+			controls.log_istranslate = document.getElementById("data_log_translate");
 
 			return controls;
 		}
@@ -102,7 +110,7 @@
 	</script>
 </head>
 
-<body onload="loadConfigurations();" draggable="false">
+<body onload="loadConfigurations(); uiCheck(true);" draggable="false">
 	<div id="title" class="container">
 		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
 		<div class="nyeol"></div>
@@ -120,9 +128,9 @@
 					<br/>
 					<br/>
 					<span style="font-size: 2rem; margin-bottom: 1rem;">기타 설정</span>
-					<div style="width:20rem;">
+					<div style="max-width :30rem;">
 						<div class="container" style="flex-direction: column; align-items: flex-start;">
-							<div class="container">
+							<div class="container" style="width: 20rem;  margin-left: 0">
 								<span>시스템 로그</span>
 								<div class="nyeol"></div>
 								<div>
@@ -130,12 +138,18 @@
 									<label class="eye" for="data_log_print_system" />
 								</div>
 							</div>
-							<div class="container">
+							<div class="container" style="width: 20rem; margin-left: 0">
 								<span>로그 번역 (글로벌용)</span>
 								<div class="nyeol"></div>
 								<div>
 									<input type="checkbox" id="data_log_translate" />
-									<label class="roundCircle" for="data_log_translate" />
+									<label class="roundCircle" for="data_log_translate" onclick="uiCheck(false);" />
+								</div>
+							</div>
+							<div>
+								<div id="apiForm" class="container">
+									<span style="margin-right:1rem;">Google Cloud API 키</span>
+									<input type="text" id="data_apikey" value="" />
 								</div>
 							</div>
 						</div>

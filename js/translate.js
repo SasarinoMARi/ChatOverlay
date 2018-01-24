@@ -11,6 +11,10 @@ function translate(text, callback) {
                     callback(r.data.translations[0].translatedText);
                 }
             }
+            else {
+                var r = JSON.parse(xmlHttp.responseText);
+                console.log("status : " + xmlHttp.status + "    " + r.error.message);
+            }
         }
         xmlHttp.open("GET", url, true);
         xmlHttp.send(null);
