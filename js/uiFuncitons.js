@@ -1,4 +1,4 @@
-
+'use strict'
 function activePlugin() {
     localStorage.activate = "true";
     $("#activate").hide();

@@ -8,53 +8,23 @@
 	<!-- 스타일시트 선언 -->
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
+	<link href="./css/common.css" rel="stylesheet">
+	<link href="./css/svgCheckbox.css" rel="stylesheet">
 	<style>
-		body {
-			width: 100vw;
-			height: 100vh;
-			max-width: 100vw;
-			max-height: 100vh;
-			overflow: hidden;
-		}
-
 		#title {
 			padding: 2rem;
-			height: 8rem;
 			box-shadow: 0px 3px 10px #888888;
+			background-color: #1E88E5;
+			color: white;
 		}
 
-		#content {
-			width: 100%;
-			padding: 2rem;
-		}
-
-		.coat1 {
-			padding: 0.5rem;
-		}
-
-		.coat2 {
+		.fadelabel {
 			padding: 1rem;
+			transition: background-color 0.2s ease-out;
 		}
 
-		.coat3 {
-			padding: 1.5rem;
-		}
-
-		.nyeol {
-			clear: both;
-		}
-
-		.align-left {
-			float: left;
-		}
-
-		.align-right {
-			float: right;
-		}
-
-		* {
-			font-size: small;
-			font-family: 'Malgun Gothic';
+		.fadelabel:hover {
+			background-color: rgba(255, 255, 255, .15);
 		}
 	</style>
 
@@ -66,21 +36,19 @@
 	<script>
 		function saveConfigurations() {
 			var controls = getControls();
-			for(var key in controls) 
-			{
+			for (var key in controls) {
 				var control = controls[key];
-				if(control.type == "text") localStorage[key] = control.value;
+				if (control.type == "text") localStorage[key] = control.value;
 				else if (control.type == "checkbox") localStorage[key] = control.checked;
 			}
 		}
 
 		function loadConfigurations() {
 			var controls = getControls();
-			for(var key in controls) 
-			{
-				if(localStorage[key] == undefined) continue;
+			for (var key in controls) {
+				if (localStorage[key] == undefined) continue;
 				var control = controls[key];
-				if(control.type == "text") control.value = localStorage[key];
+				if (control.type == "text") control.value = localStorage[key];
 				else if (control.type == "checkbox") control.checked = localStorage[key] == 'true';
 			}
 		}
@@ -132,148 +100,250 @@
 </head>
 
 <body onload="loadConfigurations();">
-	<div id="title" class="nyeol">
-		<span class="align-right" onclick="saveConfigurations(); self.opener = self; window.close();">저장</span>
-		<span class="align-left" style="font-size: 3rem;">설정</span>
+	<div id="title" class="container">
+		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
+		<div class="nyeol"></div>
+		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="saveConfigurations(); self.opener = self; window.close();">저장</span>
 	</div>
-	<div id="content">
-		<div class="coat3" class="nyeol">
-			<span class="align-left">플레이어 이름 설정</span>
-			<input class="align-right" type="text" id="data_playername" value="" />
+	<div id="content" style="margin:3rem;">
+		<div class="container" style="flex-direction: column;">
+			<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">개인 설정</span>
+			<div class="container">
+				<span>플레이어 이름 설정</span>
+				<div class="nyeol"></div>
+				<input type="text" id="data_playername" value="" />
+			</div>
 		</div>
-		<div class="coat3">
-			<span>로그별 설정 (출력)(알림)</span>
-			<div class="coat3">
-				<div class="align-left">
-					<div class="nyeol">
-						<span class="align-left">말하기</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_talk" checked/>
-							<input type="checkbox" id="data_log_notify_talk"/>
+		<br/>
+		<div class="container" style="flex-direction: column;">
+			<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">로그별 설정</span>
+			<div class="container">
+				<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+					<div class="container">
+						<span>말하기</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_talk" />
+							<label class="eye" for="data_log_print_talk" />
+						</div>
+						<div>
+							<input type="checkbox" id="data_log_notify_talk" />
+							<label class="bell" for="data_log_notify_talk" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">떠들기</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_nobodyusing" checked/>
+					<div class="container">
+						<span>떠들기</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_nobodyusing" />
+							<label class="eye" for="data_log_print_nobodyusing" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_nobodyusing" />
+							<label class="bell" for="data_log_notify_nobodyusing" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">외치기</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_shout" checked/>
+					<div class="container">
+						<span>외치기</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_shout" />
+							<label class="eye" for="data_log_print_shout" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_shout" />
+							<label class="bell" for="data_log_notify_shout" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">귓속말</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_whisper" checked/>
+					<div class="container">
+						<span>귓속말</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_whisper" />
+							<label class="eye" for="data_log_print_whisper" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_whisper" />
+							<label class="bell" for="data_log_notify_whisper" />
 						</div>
 					</div>
-
-					<div class="nyeol">
-						<span class="align-left">파티</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_party" checked/>
+					<div class="container">
+						<span>파티</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_party" />
+							<label class="eye" for="data_log_print_party" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_party" />
+							<label class="bell" for="data_log_notify_party" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">연합 파티</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_grandparty" checked/>
+					<div class="container">
+						<span>연합 파티</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_grandparty" />
+							<label class="eye" for="data_log_print_grandparty" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_grandparty" />
+							<label class="bell" for="data_log_notify_grandparty" />
+						</div>
+						<div>
 						</div>
 					</div>
-
-					<div class="nyeol">
-						<span class="align-left">초보자 채널</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_novice" checked/>
-							<input type="checkbox" id="data_log_notify_novice" />
+					<div class="container">
+						<span>자유부대</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_fc" />
+							<label class="eye" for="data_log_print_fc" />
 						</div>
-					</div>
-					<div class="nyeol">
-						<span class="align-left">감정 표현</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_emote" checked/>
-							<input type="checkbox" id="data_log_notify_emote" />
-						</div>
-					</div>
-				</div>
-
-				<div class="coat3 align-left"></div>
-
-				<div class="align-left">
-					<div class="nyeol">
-						<span class="align-left">자유부대</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_fc" checked/>
+						<div>
 							<input type="checkbox" id="data_log_notify_fc" />
+							<label class="bell" for="data_log_notify_fc" />
+						</div>
+					</div>
+					<div class="container">
+						<span>초보자 채널</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_novice" />
+							<label class="eye" for="data_log_print_novice" />
+						</div>
+						<div>
+							<input type="checkbox" id="data_log_notify_novice" />
+							<label class="bell" for="data_log_notify_novice" />
 						</div>
 					</div>
 
-					<div class="nyeol">
-						<span class="align-left">링크셸1</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls1" checked/>
+				</div>
+				<div class="nyeol"></div>
+				<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+					<div class="container">
+						<span>감정 표현</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_emote" />
+							<label class="eye" for="data_log_print_emote" />
+						</div>
+						<div>
+							<input type="checkbox" id="data_log_notify_emote" />
+							<label class="bell" for="data_log_notify_emote" />
+						</div>
+					</div>
+
+					<div class="container">
+						<span>링크셸1</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls1" />
+							<label class="eye" for="data_log_print_ls1" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls1" />
+							<label class="bell" for="data_log_notify_ls1" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸2</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls2" checked/>
+					<div class="container">
+						<span>링크셸2</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls2" />
+							<label class="eye" for="data_log_print_ls2" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls2" />
+							<label class="bell" for="data_log_notify_ls2" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸3</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls3" checked/>
+					<div class="container">
+						<span>링크셸3</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls3" />
+							<label class="eye" for="data_log_print_ls3" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls3" />
+							<label class="bell" for="data_log_notify_ls3" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸4</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls4" checked/>
+					<div class="container">
+						<span>링크셸4</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls4" />
+							<label class="eye" for="data_log_print_ls4" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls4" />
+							<label class="bell" for="data_log_notify_ls4" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸5</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls5" checked/>
+					<div class="container">
+						<span>링크셸5</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls5" />
+							<label class="eye" for="data_log_print_ls5" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls5" />
+							<label class="bell" for="data_log_notify_ls5" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸6</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls6" checked/>
+					<div class="container">
+						<span>링크셸6</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls6" />
+							<label class="eye" for="data_log_print_ls6" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls6" />
+							<label class="bell" for="data_log_notify_ls6" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸7</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls7" checked/>
+					<div class="container">
+						<span>링크셸7</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls7" />
+							<label class="eye" for="data_log_print_ls7" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls7" />
+							<label class="bell" for="data_log_notify_ls7" />
 						</div>
 					</div>
-					<div class="nyeol">
-						<span class="align-left">링크셸8</span>
-						<div class="align-right">
-							<input type="checkbox" id="data_log_print_ls8" checked/>
+					<div class="container">
+						<span>링크셸8</span>
+						<div class="nyeol"></div>
+						<div>
+							<input type="checkbox" id="data_log_print_ls8" />
+							<label class="eye" for="data_log_print_ls8" />
+						</div>
+						<div>
 							<input type="checkbox" id="data_log_notify_ls8" />
+							<label class="bell" for="data_log_notify_ls8" />
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="container" style="flex-direction: column; align-items: flex-start;">
+			<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
+			<span>제작 : 사긔 <a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a></span>
+			<span>기술지원 : 아즈 <a href="https://twitter.com/___HMR___" target="_blank">@___HMR___</a></span>
+			<span>기술지원 : 종이 <a href="https://twitter.com/hibiyasleep" target="_blank">@hibiyasleep</a></span>
+		</div>
+		<br/>
+		<div class="container" style="flex-direction: column; align-items: flex-start;">
+			<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
+			<span><a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a></span>
+			<span>forked from <a href="https://github.com/AZUSAHMR/ffxiv-blackbox" target="_blank">AZUSAHMR/ffxiv-blackbox</a></span>
 		</div>
 	</div>
 	</div>

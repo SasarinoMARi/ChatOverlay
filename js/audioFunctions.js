@@ -1,4 +1,4 @@
-
+'use strict'
 var tell1 = new Audio('snd/FFXIV_Incoming_Tell_1.wav');
 var tell3 = new Audio('snd/FFXIV_Incoming_Tell_3.wav');
 
