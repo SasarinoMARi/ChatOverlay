@@ -40,6 +40,9 @@ function firstRunInitialize() {
     localStorage.data_log_notify_talk = false;
     localStorage.data_log_print_talk = true;
     localStorage.data_log_notify_talk = false;
+    
+    localStorage.log_isprint_system = true;
+    localStorage.log_istranslate = false;
   }
 }
 
@@ -78,10 +81,9 @@ const getType = function getLogType(type) {
 };
 
 function filterLog(type) {
-
   var isTalkLogEnabled = true;
   var isBattleLogEnabled = false;
-  var isEventLogEnabled = true;
+  var isEventLogEnabled = false;
 
   if (type == 0) return isTalkLogEnabled;
   if (type == 1) return isBattleLogEnabled;
@@ -306,15 +308,18 @@ function makeDetailData(data, decType) {
       // NPC 대사 (추정)
       obj.prefix = data.nickname + ": ";
       obj.logColor = "colorMob";
+      obj.isVisible = localStorage.log_isprint_system == 'true';
       break;
     case 68:
       // NPC 대사 (추정)
       obj.prefix = data.nickname + ": ";
       obj.logColor = "colorMob";
+      obj.isVisible = localStorage.log_isprint_system == 'true';
       break;
 
     default:
       obj.logColor = getOtherColor(decType);
+      obj.isVisible = localStorage.log_isprint_system == 'true';
       break;
   }
 

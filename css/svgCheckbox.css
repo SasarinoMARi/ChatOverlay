@@ -33,3 +33,19 @@ input[type="checkbox"]:checked + .bell {
     mask-image: url("./../svg/bell.svg");
     -webkit-mask-image: url("./../svg/bell.svg");
 }
+
+input[type="checkbox"] + .roundCircle  {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    background-color: #BDBDBD;
+    mask-image: url("./../svg/checkbox-blank-circle.svg");
+    -webkit-mask-image: url("./../svg/checkbox-blank-circle.svg");
+}
+
+input[type="checkbox"]:checked + .roundCircle {
+    background-color: #1E88E5;
+    mask-image: url("./../svg/checkbox-marked-circle.svg");
+    -webkit-mask-image: url("./../svg/checkbox-marked-circle.svg");
+}

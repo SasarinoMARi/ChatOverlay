@@ -93,6 +93,9 @@
 			controls.log_isprint_ls8 = document.getElementById("data_log_print_ls8");
 			controls.log_isnotify_ls8 = document.getElementById("data_log_notify_ls8");
 
+			controls.log_istranslate = document.getElementById("data_log_translate");
+			controls.log_isprint_system = document.getElementById("data_log_print_system");
+
 			return controls;
 		}
 
@@ -107,245 +110,282 @@
 	</div>
 	<div id="content" style="margin:3rem;">
 		<div class="container" style="flex-direction: column;">
-			<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">개인 설정</span>
-			<div class="container">
-				<span>플레이어 이름 설정</span>
-				<div class="nyeol"></div>
-				<input type="text" id="data_playername" value="" />
-			</div>
-		</div>
-		<br/>
-		<div class="container" style="flex-direction: column;">
-			<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">로그별 설정</span>
-			<div class="container">
-				<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+			<div class="container" style="align-items: flex-start;">
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">개인 설정</span>
 					<div class="container">
-						<span>말하기</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_talk" />
-							<label class="eye" for="data_log_print_talk" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_talk" />
-							<label class="bell" for="data_log_notify_talk" />
-						</div>
+						<span style="margin-right:1rem;">플레이어 이름 설정</span>
+						<input type="text" id="data_playername" value="" />
 					</div>
-					<div class="container">
-						<span>떠들기</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_nobodyusing" />
-							<label class="eye" for="data_log_print_nobodyusing" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_nobodyusing" />
-							<label class="bell" for="data_log_notify_nobodyusing" />
-						</div>
-					</div>
-					<div class="container">
-						<span>외치기</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_shout" />
-							<label class="eye" for="data_log_print_shout" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_shout" />
-							<label class="bell" for="data_log_notify_shout" />
-						</div>
-					</div>
-					<div class="container">
-						<span>귓속말</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_whisper" />
-							<label class="eye" for="data_log_print_whisper" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_whisper" />
-							<label class="bell" for="data_log_notify_whisper" />
-						</div>
-					</div>
-					<div class="container">
-						<span>파티</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_party" />
-							<label class="eye" for="data_log_print_party" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_party" />
-							<label class="bell" for="data_log_notify_party" />
-						</div>
-					</div>
-					<div class="container">
-						<span>연합 파티</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_grandparty" />
-							<label class="eye" for="data_log_print_grandparty" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_grandparty" />
-							<label class="bell" for="data_log_notify_grandparty" />
-						</div>
-						<div>
-						</div>
-					</div>
-					<div class="container">
-						<span>자유부대</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_fc" />
-							<label class="eye" for="data_log_print_fc" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_fc" />
-							<label class="bell" for="data_log_notify_fc" />
-						</div>
-					</div>
-					<div class="container">
-						<span>초보자 채널</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_novice" />
-							<label class="eye" for="data_log_print_novice" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_novice" />
-							<label class="bell" for="data_log_notify_novice" />
-						</div>
-					</div>
-
-				</div>
-				<div class="nyeol"></div>
-				<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
-					<div class="container">
-						<span>감정 표현</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_emote" />
-							<label class="eye" for="data_log_print_emote" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_emote" />
-							<label class="bell" for="data_log_notify_emote" />
-						</div>
-					</div>
-
-					<div class="container">
-						<span>링크셸1</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls1" />
-							<label class="eye" for="data_log_print_ls1" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls1" />
-							<label class="bell" for="data_log_notify_ls1" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸2</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls2" />
-							<label class="eye" for="data_log_print_ls2" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls2" />
-							<label class="bell" for="data_log_notify_ls2" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸3</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls3" />
-							<label class="eye" for="data_log_print_ls3" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls3" />
-							<label class="bell" for="data_log_notify_ls3" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸4</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls4" />
-							<label class="eye" for="data_log_print_ls4" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls4" />
-							<label class="bell" for="data_log_notify_ls4" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸5</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls5" />
-							<label class="eye" for="data_log_print_ls5" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls5" />
-							<label class="bell" for="data_log_notify_ls5" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸6</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls6" />
-							<label class="eye" for="data_log_print_ls6" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls6" />
-							<label class="bell" for="data_log_notify_ls6" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸7</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls7" />
-							<label class="eye" for="data_log_print_ls7" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls7" />
-							<label class="bell" for="data_log_notify_ls7" />
-						</div>
-					</div>
-					<div class="container">
-						<span>링크셸8</span>
-						<div class="nyeol"></div>
-						<div>
-							<input type="checkbox" id="data_log_print_ls8" />
-							<label class="eye" for="data_log_print_ls8" />
-						</div>
-						<div>
-							<input type="checkbox" id="data_log_notify_ls8" />
-							<label class="bell" for="data_log_notify_ls8" />
+					<br/>
+					<br/>
+					<span style="font-size: 2rem; margin-bottom: 1rem;">기타 설정</span>
+					<div style="width:20rem;">
+						<div class="container" style="flex-direction: column; align-items: flex-start;">
+							<div class="container">
+								<span>시스템 로그</span>
+								<div class="nyeol"></div>
+								<div>
+									<input type="checkbox" id="data_log_print_system" />
+									<label class="eye" for="data_log_print_system" />
+								</div>
+							</div>
+							<div class="container">
+								<span>로그 번역 (글로벌용)</span>
+								<div class="nyeol"></div>
+								<div>
+									<input type="checkbox" id="data_log_translate" />
+									<label class="roundCircle" for="data_log_translate" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="container">
+					<div class="container" style="flex-direction: column;">
+						<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">로그별 설정</span>
+						<div class="container">
+							<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+								<div class="container">
+									<span>말하기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_talk" />
+										<label class="eye" for="data_log_print_talk" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_talk" />
+										<label class="bell" for="data_log_notify_talk" />
+									</div>
+								</div>
+								<div class="container">
+									<span>떠들기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_nobodyusing" />
+										<label class="eye" for="data_log_print_nobodyusing" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_nobodyusing" />
+										<label class="bell" for="data_log_notify_nobodyusing" />
+									</div>
+								</div>
+								<div class="container">
+									<span>외치기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_shout" />
+										<label class="eye" for="data_log_print_shout" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_shout" />
+										<label class="bell" for="data_log_notify_shout" />
+									</div>
+								</div>
+								<div class="container">
+									<span>귓속말</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_whisper" />
+										<label class="eye" for="data_log_print_whisper" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_whisper" />
+										<label class="bell" for="data_log_notify_whisper" />
+									</div>
+								</div>
+								<div class="container">
+									<span>파티</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_party" />
+										<label class="eye" for="data_log_print_party" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_party" />
+										<label class="bell" for="data_log_notify_party" />
+									</div>
+								</div>
+								<div class="container">
+									<span>연합 파티</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_grandparty" />
+										<label class="eye" for="data_log_print_grandparty" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_grandparty" />
+										<label class="bell" for="data_log_notify_grandparty" />
+									</div>
+									<div>
+									</div>
+								</div>
+								<div class="container">
+									<span>자유부대</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_fc" />
+										<label class="eye" for="data_log_print_fc" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_fc" />
+										<label class="bell" for="data_log_notify_fc" />
+									</div>
+								</div>
+								<div class="container">
+									<span>초보자 채널</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_novice" />
+										<label class="eye" for="data_log_print_novice" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_novice" />
+										<label class="bell" for="data_log_notify_novice" />
+									</div>
+								</div>
+								<div class="container">
+									<span>감정 표현</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_emote" />
+										<label class="eye" for="data_log_print_emote" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_emote" />
+										<label class="bell" for="data_log_notify_emote" />
+									</div>
+								</div>
+							</div>
+							<div class="nyeol"></div>
+							<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+								<div class="container">
+									<span>링크셸1</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls1" />
+										<label class="eye" for="data_log_print_ls1" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls1" />
+										<label class="bell" for="data_log_notify_ls1" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸2</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls2" />
+										<label class="eye" for="data_log_print_ls2" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls2" />
+										<label class="bell" for="data_log_notify_ls2" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸3</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls3" />
+										<label class="eye" for="data_log_print_ls3" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls3" />
+										<label class="bell" for="data_log_notify_ls3" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸4</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls4" />
+										<label class="eye" for="data_log_print_ls4" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls4" />
+										<label class="bell" for="data_log_notify_ls4" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸5</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls5" />
+										<label class="eye" for="data_log_print_ls5" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls5" />
+										<label class="bell" for="data_log_notify_ls5" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸6</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls6" />
+										<label class="eye" for="data_log_print_ls6" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls6" />
+										<label class="bell" for="data_log_notify_ls6" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸7</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls7" />
+										<label class="eye" for="data_log_print_ls7" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls7" />
+										<label class="bell" for="data_log_notify_ls7" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸8</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls8" />
+										<label class="eye" for="data_log_print_ls8" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls8" />
+										<label class="bell" for="data_log_notify_ls8" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="container">
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
+					<span>제작 : 사긔
+						<a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a>
+					</span>
+					<span>기술지원 : 아즈
+						<a href="https://twitter.com/___HMR___" target="_blank">@___HMR___</a>
+					</span>
+					<span>기술지원 : 종이
+						<a href="https://twitter.com/hibiyasleep" target="_blank">@hibiyasleep</a>
+					</span>
+				</div>
+				<br/>
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
+					<span>
+						<a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a>
+					</span>
+					<span>forked from
+						<a href="https://github.com/AZUSAHMR/ffxiv-blackbox" target="_blank">AZUSAHMR/ffxiv-blackbox</a>
+					</span>
+				</div>
 			</div>
 		</div>
-		<div class="container" style="flex-direction: column; align-items: flex-start;">
-			<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
-			<span>제작 : 사긔 <a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a></span>
-			<span>기술지원 : 아즈 <a href="https://twitter.com/___HMR___" target="_blank">@___HMR___</a></span>
-			<span>기술지원 : 종이 <a href="https://twitter.com/hibiyasleep" target="_blank">@hibiyasleep</a></span>
-		</div>
-		<br/>
-		<div class="container" style="flex-direction: column; align-items: flex-start;">
-			<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
-			<span><a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a></span>
-			<span>forked from <a href="https://github.com/AZUSAHMR/ffxiv-blackbox" target="_blank">AZUSAHMR/ffxiv-blackbox</a></span>
-		</div>
-	</div>
 	</div>
 </body>
 
