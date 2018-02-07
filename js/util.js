@@ -141,7 +141,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_whisper == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_whisper == 'true') playSnd('tell3');
-        obj.prefix = ">>" + data.nickname + ": ";
+        obj.prefix = "&#62&#62" + data.nickname + ": ";
         obj.logColor = "colorWhisper";
       }
       else obj.isVisible = false;
@@ -152,7 +152,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_whisper == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_whisper == 'true') playSnd('tell3');
-        obj.prefix = data.nickname + " >> ";
+        obj.prefix = data.nickname + " &#62&#62 ";
         obj.logColor = "colorWhisper";
       }
       else obj.isVisible = false;
@@ -218,7 +218,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_fc == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_fc == 'true') playSnd('tell3');
-        obj.prefix = "[자유부대]<" + data.nickname + "> ";
+        obj.prefix = "[자유부대]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorFC";
       }
       else obj.isVisible = false;
@@ -229,7 +229,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls1 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls1 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -239,7 +239,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls2 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls2 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -249,7 +249,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls3 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls3 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -259,7 +259,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls4 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls4 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -269,7 +269,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls5 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls5 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -279,7 +279,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls6 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls6 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -289,7 +289,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls7 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls7 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
@@ -299,7 +299,7 @@ function makeDetailData(data, decType) {
       if (localStorage.log_isprint_ls8 == 'true') {
         if (keywordCheck(data)) playSnd('tell1');
         else if (localStorage.log_isnotify_ls8 == 'true') playSnd('tell3');
-        obj.prefix = "[" + (decType - 15) + "]<" + data.nickname + "> ";
+        obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = "colorLS";
       }
       else obj.isVisible = false;
