@@ -328,11 +328,12 @@ function makeDetailData(data, decType) {
 }
 
 function keywordCheck(data) {
-  var username = localStorage.username;
-  if(username.length == 0) return false;
-  if(data.nickname == username) return false;
-  if (data.data.indexOf(username) > -1) return true;
-  else return false;
+    var username = localStorage.username.split(',');
+    for (var i = 0; i < username.length; i++) {
+        if (data.nickname == username[i]) return false;
+        if (data.data.indexOf(username[i]) > -1) return true;
+    }
+    return false;
 }
 
 function getOtherColor(type) {
