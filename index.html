@@ -9,7 +9,6 @@
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
 	<link href="./css/common.css" rel="stylesheet">
-	<link href="./css/logColor.css" rel="stylesheet">
 	<link href="./css/scrollbar.css" rel="stylesheet">
 	<style>
 		#logPreview {
@@ -64,7 +63,7 @@
 			var detail = makeDetailData(data, decType);
 			if (!detail.isVisible) return false;
 			translate(data.data, function (text) {
-				$("#logPreview").append('<div class="' + detail.logColor + ' code' + decType + ' fstyle" >' + timestamp + detail.prefix + $("<div></div>").text(text).html() + '</div>');
+				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: '+detail.logColor+';" >' + timestamp + detail.prefix + $("<div></div>").text(text).html() + '</div>');
 			});
 			callback();
 			return true;

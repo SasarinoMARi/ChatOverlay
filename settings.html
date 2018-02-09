@@ -35,8 +35,9 @@
 	<script src="./js/bootstrap-slider.min.js"></script>
 	<script src="./js/moment.js"></script>
 	<script>
+		var controls;
+
 		function saveConfigurations() {
-			var controls = getControls();
 			for (var key in controls) {
 				var control = controls[key];
 				if (control.type == "text") localStorage[key] = control.value;
@@ -52,17 +53,31 @@
 		}
 
 		function loadConfigurations() {
-			var controls = getControls();
 			for (var key in controls) {
 				if (localStorage[key] == undefined) continue;
 				var control = controls[key];
 				if (control.type == "text") control.value = localStorage[key];
 				else if (control.type == "checkbox") control.checked = localStorage[key] == 'true';
+				else if (control.type == "button") controls[key].style.backgroundColor =localStorage[key];
 			}
 		}
 
+		function popupColorsetDialog(logtype) {
+			var color = prompt("로그 색상을 입력해 주세요", localStorage[logtype]);
+			if (IsVaildColor(color)) {
+				localStorage[logtype] = color;
+				controls[logtype].style.backgroundColor = color;
+			}
+		}
+
+		function IsVaildColor(color) {
+			if (color == null || color == "") return false;
+			// should be implemented.
+			return true;
+		}
+
 		function getControls() {
-			var controls = {};
+			controls = {};
 			controls.username = document.getElementById("data_playername");
 
 			controls.log_isprint_talk = document.getElementById("data_log_print_talk");
@@ -105,13 +120,31 @@
 			controls.log_apikey = document.getElementById("data_apikey");
 			controls.log_istranslate = document.getElementById("data_log_translate");
 
+			controls.logColor_talk = document.getElementById("logColor_talk");
+			controls.logColor_nobodyusing = document.getElementById("logColor_nobodyusing");
+			controls.logColor_shout = document.getElementById("logColor_shout");
+			controls.logColor_whisper = document.getElementById("logColor_whisper");
+			controls.logColor_party = document.getElementById("logColor_party");
+			controls.logColor_grandparty = document.getElementById("logColor_grandparty");
+			controls.logColor_fc = document.getElementById("logColor_fc");
+			controls.logColor_novice = document.getElementById("logColor_novice");
+			controls.logColor_emote = document.getElementById("logColor_emote");
+			controls.logColor_ls1 = document.getElementById("logColor_ls1");
+			controls.logColor_ls2 = document.getElementById("logColor_ls2");
+			controls.logColor_ls3 = document.getElementById("logColor_ls3");
+			controls.logColor_ls4 = document.getElementById("logColor_ls4");
+			controls.logColor_ls5 = document.getElementById("logColor_ls5");
+			controls.logColor_ls6 = document.getElementById("logColor_ls6");
+			controls.logColor_ls7 = document.getElementById("logColor_ls7");
+			controls.logColor_ls8 = document.getElementById("logColor_ls8");
+
 			return controls;
 		}
 
 	</script>
 </head>
 
-<body onload="loadConfigurations(); uiCheck(true);" draggable="false">
+<body onload="getControls(); loadConfigurations(); uiCheck(true);" draggable="false">
 	<div id="title" class="container">
 		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
 		<div class="nyeol"></div>
@@ -172,6 +205,9 @@
 										<input type="checkbox" id="data_log_notify_talk" />
 										<label class="bell" for="data_log_notify_talk" />
 									</div>
+									<div>
+										<input type="button" id="logColor_talk" class="palette" onclick="popupColorsetDialog('logColor_talk');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>떠들기</span>
@@ -183,6 +219,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_nobodyusing" />
 										<label class="bell" for="data_log_notify_nobodyusing" />
+									</div>
+									<div>
+										<input type="button" id="logColor_nobodyusing" class="palette" onclick="popupColorsetDialog('logColor_nobodyusing');" />
 									</div>
 								</div>
 								<div class="container">
@@ -196,6 +235,9 @@
 										<input type="checkbox" id="data_log_notify_shout" />
 										<label class="bell" for="data_log_notify_shout" />
 									</div>
+									<div>
+										<input type="button" id="logColor_shout" class="palette" onclick="popupColorsetDialog('logColor_shouttalk');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>귓속말</span>
@@ -208,6 +250,9 @@
 										<input type="checkbox" id="data_log_notify_whisper" />
 										<label class="bell" for="data_log_notify_whisper" />
 									</div>
+									<div>
+										<input type="button" id="logColor_whisper" class="palette" onclick="popupColorsetDialog('logColor_whisper');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>파티</span>
@@ -219,6 +264,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_party" />
 										<label class="bell" for="data_log_notify_party" />
+									</div>
+									<div>
+										<input type="button" id="logColor_party" class="palette" onclick="popupColorsetDialog('logColor_party');" />
 									</div>
 								</div>
 								<div class="container">
@@ -233,6 +281,7 @@
 										<label class="bell" for="data_log_notify_grandparty" />
 									</div>
 									<div>
+										<input type="button" id="logColor_grandparty" class="palette" onclick="popupColorsetDialog('logColor_grandparty');" />
 									</div>
 								</div>
 								<div class="container">
@@ -246,6 +295,9 @@
 										<input type="checkbox" id="data_log_notify_fc" />
 										<label class="bell" for="data_log_notify_fc" />
 									</div>
+									<div>
+										<input type="button" id="logColor_fc" class="palette" onclick="popupColorsetDialog('logColor_fc');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>초보자 채널</span>
@@ -258,6 +310,9 @@
 										<input type="checkbox" id="data_log_notify_novice" />
 										<label class="bell" for="data_log_notify_novice" />
 									</div>
+									<div>
+										<input type="button" id="logColor_novice" class="palette" onclick="popupColorsetDialog('logColor_novice');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>감정 표현</span>
@@ -269,6 +324,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_emote" />
 										<label class="bell" for="data_log_notify_emote" />
+									</div>
+									<div>
+										<input type="button" id="logColor_emote" class="palette" onclick="popupColorsetDialog('logColor_emote');" />
 									</div>
 								</div>
 							</div>
@@ -285,6 +343,9 @@
 										<input type="checkbox" id="data_log_notify_ls1" />
 										<label class="bell" for="data_log_notify_ls1" />
 									</div>
+									<div>
+										<input type="button" id="logColor_ls1" class="palette" onclick="popupColorsetDialog('logColor_ls1');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>링크셸2</span>
@@ -296,6 +357,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_ls2" />
 										<label class="bell" for="data_log_notify_ls2" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls2" class="palette" onclick="popupColorsetDialog('logColor_ls2');" />
 									</div>
 								</div>
 								<div class="container">
@@ -309,6 +373,9 @@
 										<input type="checkbox" id="data_log_notify_ls3" />
 										<label class="bell" for="data_log_notify_ls3" />
 									</div>
+									<div>
+										<input type="button" id="logColor_ls3" class="palette" onclick="popupColorsetDialog('logColor_ls3');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>링크셸4</span>
@@ -320,6 +387,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_ls4" />
 										<label class="bell" for="data_log_notify_ls4" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls4" class="palette" onclick="popupColorsetDialog('logColor_ls4');" />
 									</div>
 								</div>
 								<div class="container">
@@ -333,6 +403,9 @@
 										<input type="checkbox" id="data_log_notify_ls5" />
 										<label class="bell" for="data_log_notify_ls5" />
 									</div>
+									<div>
+										<input type="button" id="logColor_ls5" class="palette" onclick="popupColorsetDialog('logColor_ls5');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>링크셸6</span>
@@ -344,6 +417,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_ls6" />
 										<label class="bell" for="data_log_notify_ls6" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls6" class="palette" onclick="popupColorsetDialog('logColor_ls6');" />
 									</div>
 								</div>
 								<div class="container">
@@ -357,6 +433,9 @@
 										<input type="checkbox" id="data_log_notify_ls7" />
 										<label class="bell" for="data_log_notify_ls7" />
 									</div>
+									<div>
+										<input type="button" id="logColor_ls7" class="palette" onclick="popupColorsetDialog('logColor_ls7');" />
+									</div>
 								</div>
 								<div class="container">
 									<span>링크셸8</span>
@@ -368,6 +447,9 @@
 									<div>
 										<input type="checkbox" id="data_log_notify_ls8" />
 										<label class="bell" for="data_log_notify_ls8" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls8" class="palette" onclick="popupColorsetDialog('logColor_ls8');" />
 									</div>
 								</div>
 							</div>

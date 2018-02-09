@@ -49,3 +49,11 @@ input[type="checkbox"]:checked + .roundCircle {
     mask-image: url("./../svg/checkbox-marked-circle.svg");
     -webkit-mask-image: url("./../svg/checkbox-marked-circle.svg");
 }
+
+.palette {
+    width: 24px;
+    height: 24px;
+    background-color: #1E88E5;
+    mask-image: url("./../svg/palette.svg");
+    -webkit-mask-image: url("./../svg/palette.svg");
+}
