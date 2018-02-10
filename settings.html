@@ -30,6 +30,7 @@
 	</style>
 
 	<!-- 자바스크립트 선언 -->
+	<script type="text/javascript" src="js/util.js"></script>
 	<script src="./js/jquery-1.12.4.min.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
 	<script src="./js/bootstrap-slider.min.js"></script>
@@ -141,6 +142,11 @@
 			return controls;
 		}
 
+		function closeSelf(){
+			self.opener = self;
+			window.close();
+		}
+
 	</script>
 </head>
 
@@ -148,7 +154,8 @@
 	<div id="title" class="container">
 		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
 		<div class="nyeol"></div>
-		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="saveConfigurations(); self.opener = self; window.close();">저장</span>
+		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="localStorage.clear(); firstRunInitialize(); closeSelf();">초기화</span>
+		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="saveConfigurations(); closeSelf();">저장</span>
 	</div>
 	<div id="content" style="margin:3rem;">
 		<div class="container" style="flex-direction: column;">
@@ -474,7 +481,7 @@
 				<br/>
 				<div class="container" style="flex-direction: column; align-items: flex-start;">
 					<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
-					<span>current version v1.0.3</span>
+					<span>current version v1.0.4</span>
 					<span>
 						<a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a>
 					</span>
