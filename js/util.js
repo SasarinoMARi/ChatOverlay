@@ -102,7 +102,7 @@ const getType = function getLogType(type) {
   else if (type < 61)
     return 0;
   else if (type == 61)
-    return 2;
+    return 0;
   else if (type < 100)
     return 0;
   else if (type < 185)
@@ -117,7 +117,7 @@ const getType = function getLogType(type) {
 function filterLog(type) {
   var isTalkLogEnabled = true;
   var isBattleLogEnabled = false;
-  var isEventLogEnabled = false;
+  var isEventLogEnabled = true;
 
   if (type == 0) return isTalkLogEnabled;
   if (type == 1) return isBattleLogEnabled;
@@ -136,6 +136,7 @@ function makeDetailData(data, decType) {
   obj.prefix = "";
   obj.logColor = "";
   obj.isVisible = true;
+
 
   switch (decType) {
     case 10:
@@ -340,6 +341,7 @@ function makeDetailData(data, decType) {
 
     case 61:
       // NPC 대사 (추정)
+      console.log("AAA");
       obj.prefix = data.nickname + ": ";
       obj.logColor = localStorage["logColor_mob"];
       obj.isVisible = localStorage.log_isprint_system == 'true';
