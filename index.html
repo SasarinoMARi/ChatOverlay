@@ -64,8 +64,8 @@
 			if (!detail.isVisible) return false;
 			translate(data.data, function (text) {
 				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: '+detail.logColor+';" >' + timestamp + detail.prefix + $("<div></div>").text(text).html() + '</div>');
+				callback();
 			});
-			callback();
 			return true;
 		}
 

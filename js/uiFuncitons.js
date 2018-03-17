@@ -29,6 +29,7 @@ function autoScroll() {
     var height = Number.MAX_SAFE_INTEGER;
     var scrollSpeed = 0;
     $("#logPreview").animate({ scrollTop: height }, scrollSpeed);
+    //$("#logPreview").scrollTo(0,document.body.scrollHeight);
 }
 
 function lineLimitation() {

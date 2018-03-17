@@ -341,7 +341,6 @@ function makeDetailData(data, decType) {
 
     case 61:
       // NPC 대사 (추정)
-      console.log("AAA");
       obj.prefix = data.nickname + ": ";
       obj.logColor = localStorage["logColor_mob"];
       obj.isVisible = localStorage.log_isprint_system == 'true';
