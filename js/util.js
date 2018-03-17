@@ -404,13 +404,15 @@ function getOtherColor(type) {
 
 function escapeLog(text) {
   text = text
-    // 이하 정수를 나타내는 문자
+    // 정수를 나타내는 문자
     .replace("", "1")
     .replace("", "2")
     .replace("", "3")
 
-    // 이하 특수문자
+    // 특수문자
     .replace("", "HQ")
+    .replace("&quot;", "\"")
+    
     ;
 
   var startList = ["\u001c", "\u0002", "�", "\u0003"];
