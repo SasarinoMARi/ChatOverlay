@@ -63,7 +63,7 @@
 			var detail = makeDetailData(data, decType);
 			if (!detail.isVisible) return false;
 			translate(data.data, function (text) {
-				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: '+detail.logColor+';" >' + timestamp + detail.prefix + $("<div></div>").text(text).html() + '</div>');
+				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: '+detail.logColor+';" >' + timestamp + detail.prefix + text + '</div>');
 				callback();
 			});
 			return true;

@@ -410,10 +410,7 @@ function escapeLog(text) {
     .replace("", "3")
 
     // 특수문자
-    .replace("", "HQ")
-    .replace("&quot;", "\"")
-    
-    ;
+    .replace("", "HQ");
 
   var startList = ["\u001c", "\u0002", "�", "\u0003"];
 

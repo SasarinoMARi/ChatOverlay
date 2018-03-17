@@ -1,4 +1,5 @@
 function translate(text, callback) {
+    text = encodeURIComponent (text);
     if (localStorage.log_istranslate == 'true') {
         var apiKey = localStorage.log_apikey;
         var url = "https://translation.googleapis.com/language/translate/v2?key=" + apiKey + "&q=" + text + "&target=ko";
@@ -9,7 +10,7 @@ function translate(text, callback) {
                 {
                     var r = JSON.parse(xmlHttp.responseText);
                     if (r.data.translations != undefined && r.data.translations.length > 0) {
-                        callback(r.data.translations[0].translatedText);
+                        callback(r.data.translations[0].translatedText.replace("<", "&lt;").replace(">", "&gt;"));
                     }
                 }
                 else {
