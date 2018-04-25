@@ -75,7 +75,7 @@ function firstRunInitialize() {
     localStorage.logColor_debuff = "#ff8cc6";
     localStorage.logColor_buff = "#94c0ff";
     localStorage.logColor_dice = "#c8c0a0";
-    localStorage.logColor_unknown = "#000000";
+    localStorage.logColor_unknown = "#fff8f8";
 
   }
 }

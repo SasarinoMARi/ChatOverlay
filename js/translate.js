@@ -1,6 +1,6 @@
 function translate(text, callback) {
-    text = encodeURIComponent (text);
     if (localStorage.log_istranslate == 'true') {
+        text = encodeURIComponent (text);
         var apiKey = localStorage.log_apikey;
         var url = "https://translation.googleapis.com/language/translate/v2?key=" + apiKey + "&q=" + text + "&target=ko";
         var xmlHttp = new XMLHttpRequest();
