@@ -39,6 +39,8 @@ function firstRunInitialize() {
     localStorage.log_isnotify_ls7 = false;
     localStorage.log_isprint_ls8 = true;
     localStorage.log_isnotify_ls8 = false;
+    localStorage.log_isprint_cwls = true;
+    localStorage.log_isnotify_cwls = false;
 
     localStorage.log_isprint_system = true;
     localStorage.log_istranslate = false;
@@ -61,6 +63,7 @@ function firstRunInitialize() {
     localStorage.logColor_ls6 = "#d4ff7f";
     localStorage.logColor_ls7 = "#d4ff7f";
     localStorage.logColor_ls8 = "#d4ff7f";
+    localStorage.logColor_cwls = "#1e88e5";
 
     localStorage.logColor_time = "#ffffff";
     localStorage.logColor_mob = "#acd848";
@@ -335,6 +338,16 @@ function makeDetailData(data, decType) {
         else if (localStorage.log_isnotify_ls8 == 'true') playSnd('tell3');
         obj.prefix = "[" + (decType - 15) + "]&#60;" + data.nickname + "&#62; ";
         obj.logColor = localStorage["logColor_ls8"];
+      }
+      else obj.isVisible = false;
+      break;
+      case 37:
+      // cwls 
+      if (localStorage.log_isprint_cwls == 'true') {
+        if (keywordCheck(data)) playSnd('tell1');
+        else if (localStorage.log_isnotify_cwls == 'true') playSnd('tell3');
+        obj.prefix = "[CWLS]&#60;" + data.nickname + "&#62; ";
+        obj.logColor = localStorage["logColor_cwls"];
       }
       else obj.isVisible = false;
       break;

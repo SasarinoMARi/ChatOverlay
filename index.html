@@ -58,6 +58,7 @@
 		function printData(data, callback) {
 			var decType = data.type & 255;
 			var type = getType(decType);
+			//console.log("raw data: " + data.data + " / type:" + decType);
 			if (!filterLog(type)) return false;
 			var timestamp = getTimeStampSpan(data);
 			var detail = makeDetailData(data, decType);

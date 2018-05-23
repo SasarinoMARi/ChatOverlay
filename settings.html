@@ -116,6 +116,8 @@
 			controls.log_isnotify_ls7 = document.getElementById("data_log_notify_ls7");
 			controls.log_isprint_ls8 = document.getElementById("data_log_print_ls8");
 			controls.log_isnotify_ls8 = document.getElementById("data_log_notify_ls8");
+			controls.log_isprint_cwls = document.getElementById("data_log_print_cwls");
+			controls.log_isnotify_cwls = document.getElementById("data_log_notify_cwls");
 
 			controls.log_isprint_system = document.getElementById("data_log_print_system");
 			controls.log_apikey = document.getElementById("data_apikey");
@@ -138,6 +140,7 @@
 			controls.logColor_ls6 = document.getElementById("logColor_ls6");
 			controls.logColor_ls7 = document.getElementById("logColor_ls7");
 			controls.logColor_ls8 = document.getElementById("logColor_ls8");
+			controls.logColor_cwls = document.getElementById("logColor_cwls");
 
 			return controls;
 		}
@@ -457,6 +460,21 @@
 									</div>
 									<div>
 										<input type="button" id="logColor_ls8" class="palette" onclick="popupColorsetDialog('logColor_ls8');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>CWLS</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_cwls" />
+										<label class="eye" for="data_log_print_cwls" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_cwls" />
+										<label class="bell" for="data_log_notify_cwls" />
+									</div>
+									<div>
+										<input type="button" id="logColor_cwls" class="palette" onclick="popupColorsetDialog('logColor_cwls');" />
 									</div>
 								</div>
 							</div>
