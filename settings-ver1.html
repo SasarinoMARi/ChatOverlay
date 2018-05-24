@@ -1,0 +1,515 @@
+﻿<!doctype HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- 스타일시트 선언 -->
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
+	<link href="./css/common.css" rel="stylesheet">
+	<link href="./css/svgCheckbox.css" rel="stylesheet">
+	<style>
+		#title {
+			padding: 2rem;
+			box-shadow: 0px 3px 10px #888888;
+			background-color: #1E88E5;
+			color: white;
+		}
+
+
+		.fadelabel {
+			padding: 1rem;
+			transition: background-color 0.2s ease-out;
+		}
+
+		.fadelabel:hover {
+			background-color: rgba(255, 255, 255, .15);
+		}
+	</style>
+
+	<!-- 자바스크립트 선언 -->
+	<script type="text/javascript" src="js/util.js"></script>
+	<script src="./js/jquery-1.12.4.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-slider.min.js"></script>
+	<script src="./js/moment.js"></script>
+	<script>
+		var controls;
+
+		function saveConfigurations() {
+			for (var key in controls) {
+				var control = controls[key];
+				if (control.type == "text") localStorage[key] = control.value;
+				else if (control.type == "checkbox") localStorage[key] = control.checked;
+			}
+		}
+
+		function uiCheck(reverse) {
+			if (document.getElementById('data_log_translate').checked == reverse)
+				document.getElementById('apiForm').style.display = 'inherit';
+			else
+				document.getElementById('apiForm').style.display = 'none';
+		}
+
+		function loadConfigurations() {
+			for (var key in controls) {
+				if (localStorage[key] == undefined) continue;
+				var control = controls[key];
+				if (control.type == "text") control.value = localStorage[key];
+				else if (control.type == "checkbox") control.checked = localStorage[key] == 'true';
+				else if (control.type == "button") controls[key].style.backgroundColor =localStorage[key];
+			}
+		}
+
+		function popupColorsetDialog(logtype) {
+			var color = prompt("로그 색상을 입력해 주세요", localStorage[logtype]);
+			if (IsVaildColor(color)) {
+				localStorage[logtype] = color;
+				controls[logtype].style.backgroundColor = color;
+			}
+		}
+
+		function IsVaildColor(color) {
+			if (color == null || color == "") return false;
+			// should be implemented.
+			return true;
+		}
+
+		function getControls() {
+			controls = {};
+			controls.username = document.getElementById("data_playername");
+
+			controls.log_isprint_talk = document.getElementById("data_log_print_talk");
+			controls.log_isnotify_talk = document.getElementById("data_log_notify_talk");
+			controls.log_isprint_nobodyusing = document.getElementById("data_log_print_nobodyusing");
+			controls.log_isnotify_nobodyusing = document.getElementById("data_log_notify_nobodyusing");
+			controls.log_isprint_shout = document.getElementById("data_log_print_shout");
+			controls.log_isnotify_shout = document.getElementById("data_log_notify_shout");
+			controls.log_isprint_whisper = document.getElementById("data_log_print_whisper");
+			controls.log_isnotify_whisper = document.getElementById("data_log_notify_whisper");
+			controls.log_isprint_party = document.getElementById("data_log_print_party");
+			controls.log_isnotify_party = document.getElementById("data_log_notify_party");
+			controls.log_isprint_grandparty = document.getElementById("data_log_print_grandparty");
+			controls.log_isnotify_grandparty = document.getElementById("data_log_notify_grandparty");
+			controls.log_isprint_novice = document.getElementById("data_log_print_novice");
+			controls.log_isnotify_novice = document.getElementById("data_log_notify_novice");
+			controls.log_isprint_emote = document.getElementById("data_log_print_emote");
+			controls.log_isnotify_emote = document.getElementById("data_log_notify_emote");
+
+			controls.log_isprint_fc = document.getElementById("data_log_print_fc");
+			controls.log_isnotify_fc = document.getElementById("data_log_notify_fc");
+			controls.log_isprint_ls1 = document.getElementById("data_log_print_ls1");
+			controls.log_isnotify_ls1 = document.getElementById("data_log_notify_ls1");
+			controls.log_isprint_ls2 = document.getElementById("data_log_print_ls2");
+			controls.log_isnotify_ls2 = document.getElementById("data_log_notify_ls2");
+			controls.log_isprint_ls3 = document.getElementById("data_log_print_ls3");
+			controls.log_isnotify_ls3 = document.getElementById("data_log_notify_ls3");
+			controls.log_isprint_ls4 = document.getElementById("data_log_print_ls4");
+			controls.log_isnotify_ls4 = document.getElementById("data_log_notify_ls4");
+			controls.log_isprint_ls5 = document.getElementById("data_log_print_ls5");
+			controls.log_isnotify_ls5 = document.getElementById("data_log_notify_ls5");
+			controls.log_isprint_ls6 = document.getElementById("data_log_print_ls6");
+			controls.log_isnotify_ls6 = document.getElementById("data_log_notify_ls6");
+			controls.log_isprint_ls7 = document.getElementById("data_log_print_ls7");
+			controls.log_isnotify_ls7 = document.getElementById("data_log_notify_ls7");
+			controls.log_isprint_ls8 = document.getElementById("data_log_print_ls8");
+			controls.log_isnotify_ls8 = document.getElementById("data_log_notify_ls8");
+			controls.log_isprint_cwls = document.getElementById("data_log_print_cwls");
+			controls.log_isnotify_cwls = document.getElementById("data_log_notify_cwls");
+
+			controls.log_isprint_system = document.getElementById("data_log_print_system");
+			controls.log_apikey = document.getElementById("data_apikey");
+			controls.log_istranslate = document.getElementById("data_log_translate");
+
+			controls.logColor_talk = document.getElementById("logColor_talk");
+			controls.logColor_nobodyusing = document.getElementById("logColor_nobodyusing");
+			controls.logColor_shout = document.getElementById("logColor_shout");
+			controls.logColor_whisper = document.getElementById("logColor_whisper");
+			controls.logColor_party = document.getElementById("logColor_party");
+			controls.logColor_grandparty = document.getElementById("logColor_grandparty");
+			controls.logColor_fc = document.getElementById("logColor_fc");
+			controls.logColor_novice = document.getElementById("logColor_novice");
+			controls.logColor_emote = document.getElementById("logColor_emote");
+			controls.logColor_ls1 = document.getElementById("logColor_ls1");
+			controls.logColor_ls2 = document.getElementById("logColor_ls2");
+			controls.logColor_ls3 = document.getElementById("logColor_ls3");
+			controls.logColor_ls4 = document.getElementById("logColor_ls4");
+			controls.logColor_ls5 = document.getElementById("logColor_ls5");
+			controls.logColor_ls6 = document.getElementById("logColor_ls6");
+			controls.logColor_ls7 = document.getElementById("logColor_ls7");
+			controls.logColor_ls8 = document.getElementById("logColor_ls8");
+			controls.logColor_cwls = document.getElementById("logColor_cwls");
+
+			return controls;
+		}
+
+		function closeSelf(){
+			self.opener = self;
+			window.close();
+		}
+
+	</script>
+</head>
+
+<body onload="getControls(); loadConfigurations(); uiCheck(true);" draggable="false">
+	<div id="title" class="container">
+		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
+		<div class="nyeol"></div>
+		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="localStorage.clear(); firstRunInitialize(); closeSelf();">초기화</span>
+		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="saveConfigurations(); closeSelf();">저장</span>
+	</div>
+	<div id="content" style="margin:3rem;">
+		<div class="container" style="flex-direction: column;">
+			<div class="container" style="align-items: flex-start;">
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">개인 설정</span>
+					<div class="container">
+						<span style="margin-right:1rem;">키워드 알림 설정(, 로 구분)</span>
+						<input type="text" id="data_playername" value="" />
+					</div>
+					<br/>
+					<br/>
+					<span style="font-size: 2rem; margin-bottom: 1rem;">기타 설정</span>
+					<div style="max-width :30rem;">
+						<div class="container" style="flex-direction: column; align-items: flex-start;">
+							<div class="container" style="width: 20rem;  margin-left: 0">
+								<span>시스템 로그</span>
+								<div class="nyeol"></div>
+								<div>
+									<input type="checkbox" id="data_log_print_system" />
+									<label class="eye" for="data_log_print_system" />
+								</div>
+							</div>
+							<div class="container" style="width: 20rem; margin-left: 0">
+								<span>로그 번역 (글로벌용)</span>
+								<div class="nyeol"></div>
+								<div>
+									<input type="checkbox" id="data_log_translate" />
+									<label class="roundCircle" for="data_log_translate" onclick="uiCheck(false);" />
+								</div>
+							</div>
+							<div>
+								<div id="apiForm" class="container">
+									<span style="margin-right:1rem;">Google Cloud API 키</span>
+									<input type="text" id="data_apikey" value="" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="container" style="flex-direction: column;">
+						<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">로그별 설정</span>
+						<div class="container">
+							<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+								<div class="container">
+									<span>말하기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_talk" />
+										<label class="eye" for="data_log_print_talk" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_talk" />
+										<label class="bell" for="data_log_notify_talk" />
+									</div>
+									<div>
+										<input type="button" id="logColor_talk" class="palette" onclick="popupColorsetDialog('logColor_talk');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>떠들기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_nobodyusing" />
+										<label class="eye" for="data_log_print_nobodyusing" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_nobodyusing" />
+										<label class="bell" for="data_log_notify_nobodyusing" />
+									</div>
+									<div>
+										<input type="button" id="logColor_nobodyusing" class="palette" onclick="popupColorsetDialog('logColor_nobodyusing');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>외치기</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_shout" />
+										<label class="eye" for="data_log_print_shout" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_shout" />
+										<label class="bell" for="data_log_notify_shout" />
+									</div>
+									<div>
+										<input type="button" id="logColor_shout" class="palette" onclick="popupColorsetDialog('logColor_shouttalk');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>귓속말</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_whisper" />
+										<label class="eye" for="data_log_print_whisper" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_whisper" />
+										<label class="bell" for="data_log_notify_whisper" />
+									</div>
+									<div>
+										<input type="button" id="logColor_whisper" class="palette" onclick="popupColorsetDialog('logColor_whisper');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>파티</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_party" />
+										<label class="eye" for="data_log_print_party" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_party" />
+										<label class="bell" for="data_log_notify_party" />
+									</div>
+									<div>
+										<input type="button" id="logColor_party" class="palette" onclick="popupColorsetDialog('logColor_party');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>연합 파티</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_grandparty" />
+										<label class="eye" for="data_log_print_grandparty" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_grandparty" />
+										<label class="bell" for="data_log_notify_grandparty" />
+									</div>
+									<div>
+										<input type="button" id="logColor_grandparty" class="palette" onclick="popupColorsetDialog('logColor_grandparty');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>자유부대</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_fc" />
+										<label class="eye" for="data_log_print_fc" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_fc" />
+										<label class="bell" for="data_log_notify_fc" />
+									</div>
+									<div>
+										<input type="button" id="logColor_fc" class="palette" onclick="popupColorsetDialog('logColor_fc');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>초보자 채널</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_novice" />
+										<label class="eye" for="data_log_print_novice" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_novice" />
+										<label class="bell" for="data_log_notify_novice" />
+									</div>
+									<div>
+										<input type="button" id="logColor_novice" class="palette" onclick="popupColorsetDialog('logColor_novice');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>감정 표현</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_emote" />
+										<label class="eye" for="data_log_print_emote" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_emote" />
+										<label class="bell" for="data_log_notify_emote" />
+									</div>
+									<div>
+										<input type="button" id="logColor_emote" class="palette" onclick="popupColorsetDialog('logColor_emote');" />
+									</div>
+								</div>
+							</div>
+							<div class="nyeol"></div>
+							<div class="container" style="flex-direction: column; align-self: flex-start; width:15rem;">
+								<div class="container">
+									<span>링크셸1</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls1" />
+										<label class="eye" for="data_log_print_ls1" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls1" />
+										<label class="bell" for="data_log_notify_ls1" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls1" class="palette" onclick="popupColorsetDialog('logColor_ls1');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸2</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls2" />
+										<label class="eye" for="data_log_print_ls2" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls2" />
+										<label class="bell" for="data_log_notify_ls2" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls2" class="palette" onclick="popupColorsetDialog('logColor_ls2');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸3</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls3" />
+										<label class="eye" for="data_log_print_ls3" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls3" />
+										<label class="bell" for="data_log_notify_ls3" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls3" class="palette" onclick="popupColorsetDialog('logColor_ls3');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸4</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls4" />
+										<label class="eye" for="data_log_print_ls4" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls4" />
+										<label class="bell" for="data_log_notify_ls4" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls4" class="palette" onclick="popupColorsetDialog('logColor_ls4');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸5</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls5" />
+										<label class="eye" for="data_log_print_ls5" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls5" />
+										<label class="bell" for="data_log_notify_ls5" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls5" class="palette" onclick="popupColorsetDialog('logColor_ls5');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸6</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls6" />
+										<label class="eye" for="data_log_print_ls6" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls6" />
+										<label class="bell" for="data_log_notify_ls6" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls6" class="palette" onclick="popupColorsetDialog('logColor_ls6');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸7</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls7" />
+										<label class="eye" for="data_log_print_ls7" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls7" />
+										<label class="bell" for="data_log_notify_ls7" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls7" class="palette" onclick="popupColorsetDialog('logColor_ls7');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>링크셸8</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_ls8" />
+										<label class="eye" for="data_log_print_ls8" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_ls8" />
+										<label class="bell" for="data_log_notify_ls8" />
+									</div>
+									<div>
+										<input type="button" id="logColor_ls8" class="palette" onclick="popupColorsetDialog('logColor_ls8');" />
+									</div>
+								</div>
+								<div class="container">
+									<span>CWLS</span>
+									<div class="nyeol"></div>
+									<div>
+										<input type="checkbox" id="data_log_print_cwls" />
+										<label class="eye" for="data_log_print_cwls" />
+									</div>
+									<div>
+										<input type="checkbox" id="data_log_notify_cwls" />
+										<label class="bell" for="data_log_notify_cwls" />
+									</div>
+									<div>
+										<input type="button" id="logColor_cwls" class="palette" onclick="popupColorsetDialog('logColor_cwls');" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="container">
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
+					<span>제작 : 사긔
+						<a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a>
+					</span>
+					<span>기술지원 : 아즈
+						<a href="https://twitter.com/___HMR___" target="_blank">@___HMR___</a>
+					</span>
+					<span>기술지원 : 종이
+						<a href="https://twitter.com/hibiyasleep" target="_blank">@hibiyasleep</a>
+					</span>
+				</div>
+				<br/>
+				<div class="container" style="flex-direction: column; align-items: flex-start;">
+					<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
+					<span>current version v1.0.4</span>
+					<span>
+						<a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a>
+					</span>
+					<span>forked from
+						<a href="https://github.com/AZUSAHMR/ffxiv-blackbox" target="_blank">AZUSAHMR/ffxiv-blackbox</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

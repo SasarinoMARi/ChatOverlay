@@ -32,8 +32,8 @@
 
 
 		.fadeicon {
-			width:24px;
-			height:24px;
+			width: 24px;
+			height: 24px;
 			background-color: #ffffff;
 			transition: background-color 0.2s ease-out;
 		}
@@ -54,17 +54,23 @@
 	<script type="text/javascript" src="js/uiFuncitons.js"></script>
 	<script type="text/javascript" src="js/audioFunctions.js"></script>
 	<script type="text/javascript" src="js/translate.js"></script>
+	<script type="text/javascript" src="js/logitem.js"></script>
 	<script>		
 		function printData(data, callback) {
 			var decType = data.type & 255;
 			var type = getType(decType);
 			//console.log("raw data: " + data.data + " / type:" + decType);
 			if (!filterLog(type)) return false;
-			var timestamp = getTimeStampSpan(data);
-			var detail = makeDetailData(data, decType);
-			if (!detail.isVisible) return false;
-			translate(data.data, function (text) {
-				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: '+detail.logColor+';" >' + timestamp + detail.prefix + text + '</div>');
+			var config = getLogItem(decType);
+			if(config == undefined) {
+				config = getLogItem(-1);
+			}
+			if (config["visibility"] != true) return false;
+			translate(data.data, config["translation"], function (text) {
+				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: ' + config["color"] + ';" >' +
+					config["format"].replace("/teller/", data.nickname).replace("/content/", data.data).replace("/timestamp/", getTimeStampSpan(data)) +
+					'</div>');
+				sound(data, config);
 				callback();
 			});
 			return true;
@@ -118,6 +124,33 @@
 			$(window).resize(setHeight);
 			activePlugin();
 		});
+
+		function sound(data, config) {
+			var username = getUserName();
+			if (username.length > 0) {
+				username = username.split(',');
+				for (var i = 0; i < username.length; i++) {
+					if (data.nickname == username[i]) return;
+					if (config['keynotification'] == true) {
+						if (data.data.indexOf(username[i]) > -1) {
+							playSnd('tell1');
+							return;
+						}
+					}
+				}
+			}
+
+			if (config['notification'] == true) {
+				playSnd('tell3');
+			}
+		}
+
+		function firstRunInitialize() {
+			if (localStorage.isFirstRun == undefined) {
+				initializeUtilValues();
+				initializeLogItems();
+			}
+		}
 	</script>
 </head>
 
@@ -127,7 +160,8 @@
 			<span style="color:#ffffff; margin-left: 1rem;">FFXIV Chat Overlay</span>
 			<div class="nyeol"></div>
 			<span class="fadeicon" style="mask-image: url('./svg/delete.svg'); -webkit-mask-image: url('./svg/delete.svg');" onclick="resetTimeline(); setHeight();"></span>
-			<span class="fadeicon" style="mask-image: url('./svg/settings.svg'); -webkit-mask-image: url('./svg/settings.svg'); margin: 0.5rem;" onclick="window.open('settings.html', '설정','width=800,height=650'); "></span>
+			<span class="fadeicon" style="mask-image: url('./svg/settings.svg'); -webkit-mask-image: url('./svg/settings.svg'); margin: 0.5rem;"
+			 onclick="window.open('settings.html', '설정','width=800,height=650'); "></span>
 		</div>
 	</div>
 	<div id="logPreview"></div>
