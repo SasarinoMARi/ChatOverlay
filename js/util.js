@@ -22,7 +22,6 @@ function initializeUtilValues() {
     localStorage.logColor_buff = "#94c0ff";
     localStorage.logColor_dice = "#c8c0a0";
     localStorage.logColor_unknown = "#fff8f8";
-
   }
 }
 
@@ -72,7 +71,7 @@ function filterLog(type) {
 }
 
 function getTimeStampSpan(data) {
-  var timestamp = new Date(data.timestamp);
+  var timestamp = new Date(data);
   var str = '<span style="color: #ffffff;" ">[' + (timestamp.getHours() < 10 ? "0" + timestamp.getHours() : timestamp.getHours()) + ":" + (timestamp.getMinutes() < 10 ? "0" + timestamp.getMinutes() : timestamp.getMinutes()) + '] </span>';
   return str;
 }

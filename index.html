@@ -55,20 +55,20 @@
 	<script type="text/javascript" src="js/audioFunctions.js"></script>
 	<script type="text/javascript" src="js/translate.js"></script>
 	<script type="text/javascript" src="js/logitem.js"></script>
-	<script>		
+	<script>
 		function printData(data, callback) {
 			var decType = data.type & 255;
 			var type = getType(decType);
 			//console.log("raw data: " + data.data + " / type:" + decType);
 			if (!filterLog(type)) return false;
 			var config = getLogItem(decType);
-			if(config == undefined) {
+			if (config == undefined) {
 				config = getLogItem(-1);
 			}
-			if (config["visibility"] != true) return false;
-			translate(data.data, config["translation"], function (text) {
-				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: ' + config["color"] + ';" >' +
-					config["format"].replace("/teller/", data.nickname).replace("/content/", data.data).replace("/timestamp/", getTimeStampSpan(data)) +
+			if (config.visibility == false) return false;
+			translate(data.data, config.translation, function (text) {
+				$("#logPreview").append('<div class="code' + decType + ' fstyle" style="color: ' + config.color + ';" >' +
+					config.format.replace("/teller/", data.nickname).replace("/content/", text).replace("/timestamp/", getTimeStampSpan(data.timestamp)) +
 					'</div>');
 				sound(data, config);
 				callback();
@@ -161,7 +161,7 @@
 			<div class="nyeol"></div>
 			<span class="fadeicon" style="mask-image: url('./svg/delete.svg'); -webkit-mask-image: url('./svg/delete.svg');" onclick="resetTimeline(); setHeight();"></span>
 			<span class="fadeicon" style="mask-image: url('./svg/settings.svg'); -webkit-mask-image: url('./svg/settings.svg'); margin: 0.5rem;"
-			 onclick="window.open('settings.html', '설정','width=800,height=650'); "></span>
+			 onclick="window.open('settings.html', '설정','width=580,height=500'); "></span>
 		</div>
 	</div>
 	<div id="logPreview"></div>

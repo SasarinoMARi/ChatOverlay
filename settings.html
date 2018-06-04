@@ -8,28 +8,12 @@
 	<!-- 스타일시트 선언 -->
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/bootstrap-slider.min.css" rel="stylesheet">
+	<link href="./css/tabs.css" rel="stylesheet">
 	<link href="./css/common.css" rel="stylesheet">
-	<link href="./css/svgCheckbox.css" rel="stylesheet">
 	<style>
-		#title {
-			padding: 2rem;
-			box-shadow: 0px 3px 10px #888888;
-			background-color: #1E88E5;
-			color: white;
-		}
-
-
-		.fadelabel {
-			padding: 1rem;
-			transition: background-color 0.2s ease-out;
-		}
-
-		.fadelabel:hover {
-			background-color: rgba(255, 255, 255, .15);
-		}
-
-		.llr {
-			width: 100%;
+		.row {
+			margin: 0.5em;
+			height: 1.7em;
 		}
 	</style>
 
@@ -41,120 +25,235 @@
 	<script src="./js/moment.js"></script>
 	<script src="./js/logitem.js"></script>
 	<script>
-		var controls;
-
-		function saveConfigurations() {
-			for (var key in controls) {
-				var control = controls[key];
-				if (control.type == "text") localStorage[key] = control.value;
-				else if (control.type == "checkbox") localStorage[key] = control.checked;
-			}
-		}
-
-		function uiCheck(reverse) {
-			if (document.getElementById('data_log_translate').checked == reverse)
-				document.getElementById('apiForm').style.display = 'inherit';
-			else
-				document.getElementById('apiForm').style.display = 'none';
-		}
-
-
-		function popupColorsetDialog(logtype) {
-			var color = prompt("로그 색상을 입력해 주세요", localStorage[logtype]);
-			localStorage[logtype] = color;
-			controls[logtype].style.backgroundColor = color;
-		}
-
-		function getControls() {
-			controls = {};
-			controls.username = document.getElementById("data_playername");
-
-			return controls;
-		}
-
 		function closeSelf() {
 			self.opener = self;
 			window.close();
 		}
 
-		
+		function openTab(evt, cityName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+			loadPageFromLocalStorage();
+		}
 
+		function loadPageFromLocalStorage() {
+			if (localStorage["flag"] == undefined) {
+				commitDefaultValues();
+			}
+
+			document.getElementById("username").value = localStorage["username"];
+			document.getElementById("googleApiKey").value = localStorage["googleApiKey"];
+			document.getElementById("papagoApiKey").value = localStorage["papagoApiKey"];
+			appendLogList();
+		}
+
+		var tempcode = 0;
+
+		function loadEditForm(code) {
+			tempcode = code;
+			if (code != undefined) {
+				var item = getLogItem(code);
+				document.getElementById("ld_index").value = item.code;
+				document.getElementById("ld_name").value = item.name;
+				document.getElementById("ld_format").value = item.format;
+				document.getElementById("ld_color").value = item.color;
+				document.getElementById("ld_visibility").checked = item.visibility;
+				document.getElementById("ld_sound").checked = item.notification;
+				document.getElementById("ld_keyword").checked = item.keynotification;
+				document.getElementById("ld_translation").checked = item.translation;
+				document.getElementById("btn_delete").hidden = false;
+				document.getElementById("btn_commit").value = "적용";
+			}
+			else {
+				document.getElementById("ld_index").value = "";
+				document.getElementById("ld_name").value = "";
+				document.getElementById("ld_format").value = "";
+				document.getElementById("ld_color").value = "";
+				document.getElementById("ld_visibility").checked = true;
+				document.getElementById("ld_sound").checked = false;
+				document.getElementById("ld_keyword").checked = true;
+				document.getElementById("ld_translation").checked = false;
+				document.getElementById("btn_delete").hidden = true;
+				document.getElementById("btn_commit").value = "추가";
+			}
+			openTab(event, 'LogEdit');
+		}
+
+		function commitDefaultValues() {
+			localStorage["flag"] = 'd';
+			localStorage["username"] = "";
+			localStorage["googleApiKey"] = "";
+			localStorage["papagoApiKey"] = "";
+			initializeLogItems();
+		}
+
+		// Button Callbacks ////////////////////////////////////////////////////////////////
+
+		function onPlayernameCommit() {
+			localStorage["username"] = document.getElementById("username").value;
+		}
+
+		function onGoogleCommit() {
+			// 저장하기 전에 테스트 해보기
+			localStorage["googleApiKey"] = document.getElementById("googleApiKey").value;
+		}
+
+		function onPapagoCommit() {
+			window.alert("미안해요! 아직 지원 안해요!!!");
+		}
+
+		function onLogEdit() {
+			if (tempcode != undefined) {
+				removeLogItem(tempcode);
+			}
+			var code = document.getElementById("ld_index").value;
+			addLogItem(
+				document.getElementById("ld_index").value,
+				document.getElementById("ld_name").value,
+				document.getElementById("ld_format").value,
+				document.getElementById("ld_color").value,
+				document.getElementById("ld_visibility").checked,
+				document.getElementById("ld_sound").checked,
+				document.getElementById("ld_keyword").checked,
+				document.getElementById("ld_translation").checked
+			);
+
+		}
+
+		function onLogDelete() {
+			if (confirm("정말로 삭제하실거에요?") == true) {
+				if (tempcode != undefined) {
+					removeLogItem(tempcode);
+				}
+				openTab(event, 'Log');
+			}
+		}
+
+		function onReset() {
+			if (confirm("설정을 정말 초기화 하실 건가요?") == true) {
+				removeAllLogItems();
+				initializeLogItems();
+				openTab(event, 'About');
+				openTab(event, 'Log');
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////
+
+		function initialize() {
+			loadPageFromLocalStorage();
+			document.getElementById("defaultOpen").click();
+		}
 	</script>
 </head>
 
-<body onload="getControls(); appendLogList(); uiCheck(true);" draggable="false">
-	<div id="title" class="container">
-		<span style="font-size: 3rem; margin-left: 1rem;">설정</span>
-		<div class="nyeol"></div>
-		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="localStorage.clear(); firstRunInitialize(); closeSelf();">초기화</span>
-		<span class="fadelabel" style="font-size: 2rem; margin-right: 1rem; " onclick="saveConfigurations(); closeSelf();">저장</span>
+<body onload="initialize();">
+	<div class="tab">
+		<button class="tablinks" onclick="openTab(event, 'General')" id="defaultOpen">General</button>
+		<button class="tablinks" onclick="openTab(event, 'Log')">Log</button>
+		<button class="tablinks" onclick="openTab(event, 'About')">About</button>
 	</div>
-	<div id="content" style="margin:3rem;">
-		<div class="container" style="flex-direction: column;">
-			<div class="container" style="align-items: flex-start;">
-				<div class="container" style="flex-direction: column; align-items: flex-start;">
-					<span style="font-size: 2rem; margin-bottom: 1rem;">개인 설정</span>
-					<div class="container">
-						<span style="margin-right:1rem;">키워드 알림(, 로 구분)</span>
-						<input type="text" id="data_playername" value="" />
-					</div>
-					<br/>
-					<br/>
-					<span style="font-size: 2rem; margin-bottom: 1rem;">기타 설정</span>
-					<div style="max-width :30rem;">
-						<div class="container" style="flex-direction: column; align-items: flex-start;">
-							<div class="container" style="width: 20rem; margin-left: 0">
-								<span>로그 번역 사용</span>
-								<div class="nyeol"></div>
-								<div>
-									<input type="checkbox" id="data_log_translate" />
-									<label class="roundCircle" for="data_log_translate" onclick="uiCheck(false);" />
-								</div>
-							</div>
-							<div>
-								<div id="apiForm" class="container">
-									<span style="margin-right:1rem;">Google Cloud API 키</span>
-									<input type="text" id="data_apikey" value="" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="container" style="flex-direction: column;">
-						<span style="font-size: 2rem; margin-bottom: 1rem; align-self: flex-start;">로그별 설정</span>
-						<div id="loglist" class="container" style="overflow:scroll; flex-direction: column; height:10em">
 
-						</div>
-					</div>
-				</div>
-			</div>
+	<div id="General" class="tabcontent">
+		<h3>Keyword Settings</h3>
+		<div class="container">
+			<p class="row">키워드 설정</p>
+			<input type="text" id="username" class="row" value="" style="flex-grow: 5" />
+			<input type="button" class="row" value="적용" style="flex-grow: 1" onClick="onPlayernameCommit();" />
+		</div>
+		<p class="row">키워드가 포함된 로그가 올라오면 소리로 알려줍니다.</p>
+		<p class="row">각 키워드는 ,로 구분해주세요.</p>
+		<h3>Translate Settings</h3>
+		<div class="container">
+			<p class="row">Google API</p>
+			<input type="text" id="googleApiKey" class="row" value="" style="flex-grow: 5" />
+			<input type="button" class="row" value="적용" style="flex-grow: 1" onClick="onGoogleCommit();" />
+		</div>
+		<div class="container">
+			<p class="row">PAPAGO API</p>
+			<input type="text" id="papagoApiKey" class="row" value="" style="flex-grow: 5" />
+			<input type="button" class="row" value="적용" style="flex-grow: 1" onClick="onPapagoCommit();" />
+		</div>
+	</div>
+
+	<div id="Log" class="tabcontent">
+		<div style="display: flex">
+			<h3 style="flex:1">Log Detail Settings</h3>
+			<input type="button" class="row" value="추가" onclick="loadEditForm(undefined);" style="width:7rem; height:3rem; margin-top:2.5rem;"
+			/>
+			<input type="button" class="row" value="초기화" onclick="onReset()" style="width:7rem; height:3rem; margin-top:2.5rem; color:red"
+			/>
+		</div>
+		<p>클릭하여 편집할 수 있습니다.</p>
+		<br>
+		<div id="loglist" style="overflow-x: hidden; overflow-y: scroll;  height: 20em; background-color:rgba(0,0,0,0.9);"></div>
+	</div>
+
+	<div id="About" class="tabcontent">
+		<div class="container" style="flex-direction: column; margin-top: 2em; margin-bottom: 2em;">
+			<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
+			<span>사긔
+				<a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a>
+			</span>
 			<br/>
-			<div class="container">
-				<div class="container" style="flex-direction: column; align-items: flex-start;">
-					<span style="font-size: 2rem; margin-bottom: 1rem;">Contributors</span>
-					<span>제작 : 사긔
-						<a href="https://twitter.com/SasarinoMARi" target="_blank">@SasarinoMARi</a>
-					</span>
-					<span>기술지원 : 아즈
-						<a href="https://twitter.com/___HMR___" target="_blank">@___HMR___</a>
-					</span>
-					<span>기술지원 : 종이
-						<a href="https://twitter.com/hibiyasleep" target="_blank">@hibiyasleep</a>
-					</span>
-				</div>
-				<br/>
-				<div class="container" style="flex-direction: column; align-items: flex-start;">
-					<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
-					<span>current version v1.0.4</span>
-					<span>
-						<a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a>
-					</span>
-					<span>forked from
-						<a href="https://github.com/AZUSAHMR/ffxiv-blackbox" target="_blank">AZUSAHMR/ffxiv-blackbox</a>
-					</span>
-				</div>
-			</div>
+			<span style="font-size: 2rem; margin-bottom: 1rem;">Others</span>
+			<span>current version v1.1.0</span>
+			<span>
+				<a href="https://github.com/Usagination/ACT-Overlay-Chatlogger" target="_blank">Chat Overlay Github</a>
+			</span>
+		</div>
+	</div>
+
+	<div id="LogEdit" class="tabcontent">
+		<h3>Log Edit</h3>
+		<div class="container">
+			<p class="row" style="width:10em">Index</p>
+			<input type="text" id="ld_index" class="row" value="" style="width:2em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Name</p>
+			<input type="text" id="ld_name" class="row" value="" style="width:10em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Format</p>
+			<input type="text" id="ld_format" class="row" value="" style="flex-grow: 1" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Color</p>
+			<input type="text" id="ld_color" class="row" value="" style="width:10em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Visibility</p>
+			<input type="checkbox" id="ld_visibility" class="row" value="" style="width:2em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Sound</p>
+			<input type="checkbox" id="ld_sound" class="row" value="" style="width:2em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em">Keyword Check</p>
+			<input type="checkbox" id="ld_keyword" class="row" value="" style="width:2em" />
+		</div>
+		<div class="container">
+			<p class="row" style="width:10em;">Translation</p>
+			<input type="checkbox" id="ld_translation" class="row" value="" style="width:2em" />
+		</div>
+		<br/>
+		<div class="container">
+			<input id="btn_commit" type="button" class="row" value="적용" onclick="onLogEdit(); openTab(event, 'Log')" style="width:7rem; height:3rem"
+			/>
+			<input id="btn_delete" type="button" class="row" value="삭제" onclick="onLogDelete();" style="width:7rem; height:3rem; color:red"
+			/>
+			<input type="button" class="row" value="취소" onclick=" openTab(event, 'Log')" style="width:7rem; height:3rem" />
 		</div>
 	</div>
 </body>
