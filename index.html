@@ -60,7 +60,6 @@
 			var decType = data.type & 255;
 			var type = getType(decType);
 			//console.log("raw data: " + data.data + " / type:" + decType);
-			if (!filterLog(type)) return false;
 			var config = getLogItem(decType);
 			if (config == undefined) {
 				config = getLogItem(-1);

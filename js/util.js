@@ -36,6 +36,11 @@ const pFloat = function parseLocaledFloat(string) {
 }
 
 const getType = function getLogType(type) {
+
+  // 0 : talk
+  // 1 : battle
+  // 2 : event
+
   if (type < 40)
     return 0;
   else if (type < 50)
@@ -58,17 +63,6 @@ const getType = function getLogType(type) {
     return 1;
   return 0;
 };
-
-function filterLog(type) {
-  var isTalkLogEnabled = true;
-  var isBattleLogEnabled = false;
-  var isEventLogEnabled = true;
-
-  if (type == 0) return isTalkLogEnabled;
-  if (type == 1) return isBattleLogEnabled;
-  if (type == 2) return isEventLogEnabled;
-  return false;
-}
 
 function getTimeStampSpan(data) {
   var timestamp = new Date(data);

@@ -86,7 +86,7 @@ function removeAllLogItems() {
 }
 
 function initializeLogItems() {
-    addLogItem(-1, "지정되지 않은 로그", "/timestamp/ /content/", "#ffffff", true, false, false, true);
+    addLogItem(-1, "지정되지 않은 로그", "/timestamp/ /teller/ /content/", "#ffffff", true, false, false, true);
 
     addLogItem(10, "말하기", "/timestamp/ /teller/: /content/", "#f7f7f7", true, false, true, true);
     addLogItem(30, "떠들기", "/timestamp/ /teller/: /content/", "#ffff00", true, false, true, true);
@@ -113,4 +113,29 @@ function initializeLogItems() {
     addLogItem(60, "오류", "/timestamp/ /content/", "#ff4a4a", true, false, false, true);
     addLogItem(57, "시스템", "/timestamp/ /content/", "#cccccc", true, false, false, true);
     addLogItem(61, "NPC 대화", "/teller/: /content/", "#abd647", true, false, false, true);
+    addLogItem(68, "NPC 전투 대화", "/teller/: /content/", "#abd647", true, false, false, true);
+
+
+    // 전투 기록
+    addLogItem(58, "적 출현/소멸", "/timestamp/ /content/", "#cccccc", true, false, false, true);
+
+    // 자신
+    addLogItem(170, "자신의 빗나간 공격", "/timestamp/ /content/", "#cccccc", false, false, false, true);
+    addLogItem(44, "자신의 아이템 사용", "/timestamp/ /content/", "#ffffb0", false, false, false, true);
+    addLogItem(171, "자신의 기술 사용", "/timestamp/ /content/", "#ffffb0", false, false, false, true);
+    addLogItem(172, "자신의 캐스팅", "/timestamp/ /content/", "#ffffb0", false, false, false, true);
+    addLogItem(173, "자신의 받은 치유", "/timestamp/ /content/", "#d4ff7d", false, false, false, true);
+    addLogItem(174, "자신의 받은 효과", "/timestamp/ /content/", "#94bfff", false, false, false, true);
+    addLogItem(175, "자신이 부여한 효과", "/timestamp/ /content/", "#94bfff", false, false, false, true);
+    addLogItem(176, "자신의 사라진 효과", "/timestamp/ /content/", "#ff8ac4", false, false, false, true);
+    
+    // 대상
+    addLogItem(169, "피해 받음", "/timestamp/ /content/", "#ff7d7d", false, false, false, true);
+
+    // 타인
+    addLogItem(41, "타인이 받은 피해", "/timestamp/ /content/", "#ff7d7d", false, false, false, true);
+    addLogItem(43, "기술 시전", "/timestamp/ /content/", "#f7f7f7", false, false, false, true);
+    addLogItem(45, "타인이 받은 치유 ", "/timestamp/ /content/", "#d4ff7d", false, false, false, true);
+    addLogItem(46, "타인이 받은 효과", "/timestamp/ /content/", "#94bfff", false, false, false, true);
+    addLogItem(48, "타인이 사라진 효과", "/timestamp/ /content/", "#ff8ac4", false, false, false, true);
 }
