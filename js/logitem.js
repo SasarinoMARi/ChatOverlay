@@ -86,7 +86,7 @@ function removeAllLogItems() {
 }
 
 function initializeLogItems() {
-    addLogItem(-1, "지정되지 않은 로그", "/timestamp/ /teller/ /content/", "#ffffff", true, false, false, true);
+    addLogItem(-1, "지정되지 않은 로그", "/teller/ /content/", "#ffffff", true, false, false, true);
 
     addLogItem(10, "말하기", "/timestamp/ /teller/: /content/", "#f7f7f7", true, false, true, true);
     addLogItem(30, "떠들기", "/timestamp/ /teller/: /content/", "#ffff00", true, false, true, true);
@@ -114,6 +114,7 @@ function initializeLogItems() {
     addLogItem(57, "시스템", "/timestamp/ /content/", "#cccccc", true, false, false, true);
     addLogItem(61, "NPC 대화", "/teller/: /content/", "#abd647", true, false, false, true);
     addLogItem(68, "NPC 전투 대화", "/teller/: /content/", "#abd647", true, false, false, true);
+    addLogItem(72, "조건에 맞는 파티 모집", "/content/", "#cccccc", true, false, false, true);
 
 
     // 전투 기록
@@ -134,8 +135,10 @@ function initializeLogItems() {
 
     // 타인
     addLogItem(41, "타인이 받은 피해", "/timestamp/ /content/", "#ff7d7d", false, false, false, true);
-    addLogItem(43, "기술 시전", "/timestamp/ /content/", "#f7f7f7", false, false, false, true);
+    addLogItem(42, "타인의 빗나간 공격", "/timestamp/ /content/", "#f7f7f7", false, false, false, true);
+    addLogItem(43, "타인의 기술 시전", "/timestamp/ /content/", "#f7f7f7", false, false, false, true);
     addLogItem(45, "타인이 받은 치유 ", "/timestamp/ /content/", "#d4ff7d", false, false, false, true);
     addLogItem(46, "타인이 받은 효과", "/timestamp/ /content/", "#94bfff", false, false, false, true);
+    addLogItem(47, "타인이 부여한 효과", "/timestamp/ /content/", "#94bfff", false, false, false, true);
     addLogItem(48, "타인이 사라진 효과", "/timestamp/ /content/", "#ff8ac4", false, false, false, true);
 }
