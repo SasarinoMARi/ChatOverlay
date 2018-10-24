@@ -1,13 +1,13 @@
 function translate(text, doTranslate, callback) {
     if (doTranslate == true) {
-        console.log("translate");
         var googleApiKey = localStorage["googleApiKey"];
         var papagoApiKey = localStorage["papagoApiKey"];
-        var papagoApiSecret = "q2i3MXKC5U";
+        var papagoApiSecret = localStorage["papagoApiSecret"];
         var sourceLanguage = "ja";
-        if (papagoApiKey != undefined) {
-            if (papagoApiKey.length > 0) {
+        if (papagoApiKey != undefined && papagoApiSecret != undefined) {
+            if (papagoApiKey.length > 0 && papagoApiSecret.length > 0 ) {
                 var encodedText = encodeURIComponent(text);
+                console.log(papagoApiKey + " //// " + papagoApiSecret);
                 var url = "https://openapi.naver.com/v1/language/translate";
                 var body = "target=ko&source=" + sourceLanguage + "&text=" + encodedText
                 var xmlHttp = new XMLHttpRequest();

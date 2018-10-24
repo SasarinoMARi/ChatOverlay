@@ -53,6 +53,7 @@
 			document.getElementById("username").value = localStorage["username"];
 			document.getElementById("googleApiKey").value = localStorage["googleApiKey"];
 			document.getElementById("papagoApiKey").value = localStorage["papagoApiKey"];
+			document.getElementById("papagoApiSecret").value = localStorage["papagoApiSecret"];
 			appendLogList();
 		}
 
@@ -93,6 +94,7 @@
 			localStorage["username"] = "";
 			localStorage["googleApiKey"] = "";
 			localStorage["papagoApiKey"] = "";
+			localStorage["papagoApiSecret"] = "";
 			initializeLogItems();
 		}
 
@@ -109,6 +111,7 @@
 
 		function onPapagoCommit() {
 			localStorage["papagoApiKey"] = document.getElementById("papagoApiKey").value;
+			localStorage["papagoApiSecret"] = document.getElementById("papagoApiSecret").value;
 		}
 
 		function onLogEdit() {
@@ -178,9 +181,15 @@
 			<input type="text" id="googleApiKey" class="row" value="" style="flex-grow: 5" />
 			<input type="button" class="row" value="적용" style="flex-grow: 1" onClick="onGoogleCommit();" />
 		</div>
+		<div class="container"></div>
 		<div class="container">
-			<p class="row">PAPAGO API</p>
+			<p class="row">PAPAGO Client ID</p>
 			<input type="text" id="papagoApiKey" class="row" value="" style="flex-grow: 5" />
+			<input type="button" style="flex-grow: 1; display: none" />
+		</div>
+		<div class="container">
+			<p class="row">PAPAGO Client Secret</p>
+			<input type="text" id="papagoApiSecret" class="row" value="" style="flex-grow: 5" />
 			<input type="button" class="row" value="적용" style="flex-grow: 1" onClick="onPapagoCommit();" />
 		</div>
 	</div>
